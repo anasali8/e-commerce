@@ -40,12 +40,17 @@
                     fill="var(--primary-color-text)" />
                 <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z"
                     fill="var(--primary-color-text)" />
-            </svg>
+            </svg> 
         </ng-template>
         
-        <ng-template pTemplate="end">
+        
+        <ng-template pTemplate="end" >
             @for (item of items; track $index) {
-            <a pRipple class="p-menuitem-link p-link inline-flex justify-content-center align-items-center hover:surface-100 transition-all transition-duration-200 p-2 ">
+            <a 
+            [routerLink]="[item?.['path']]"
+            pRipple class="p-menuitem-link p-link inline-flex justify-content-center align-items-center 
+            p-2 text-black-alpha-70 hover:text-black-alpha-40 transition-colors duration-200 ease-in-out"
+            >
                 <span [class]="item.icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
             </a>
