@@ -1,1 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    margin: 0;
+}
+.container{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media only screen and (max-width: 767px) {
+    .container {
+        max-width: 90%;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .container {
+        max-width: 740px;
+    }
+}
+@media only screen and (min-width: 992px){
+    .container {
+        max-width: 980px;
+    }
+}
+@media only screen and (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+    .container {
+        max-width: 1320px;
+    }
+}
+
+.shadow-lg {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175) !important;
+}
+
+.purple-theme{
+    // purple-900
+    background-color: #4A148C !important;
+}
