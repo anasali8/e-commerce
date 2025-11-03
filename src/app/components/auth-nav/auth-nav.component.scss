@@ -1,0 +1,9 @@
+.color-primary{
+  color: #3b82f6;
+  font-weight: 700;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #176aef;
+  }
+}
