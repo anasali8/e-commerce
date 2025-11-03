@@ -13,3 +13,20 @@
     
 }
 
+:host ::ng-deep .p-password {
+  width: 100%;
+}
+
+:host ::ng-deep .p-password .p-password-input {
+  width: 100%;
+  padding-right: 2.5rem !important; 
+}
+
+:host ::ng-deep .p-password .p-password-toggle-mask {
+  right: 0.75rem !important; 
+  left: auto !important;
+}
+
+.text-small{
+    font-size: 9px !important;
+}

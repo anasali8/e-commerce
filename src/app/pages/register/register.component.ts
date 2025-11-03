@@ -5,11 +5,13 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-
+import { CommonModule } from '@angular/common';
+import { PasswordModule } from 'primeng/password';
+import { DividerModule } from 'primeng/divider';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule, ButtonModule],
+  imports: [FormsModule, ReactiveFormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule, ButtonModule, DividerModule, CommonModule,PasswordModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
@@ -21,7 +23,8 @@ export class RegisterComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$')]),
     rePassword : new FormControl('', [Validators.required]),
-    phone : new FormControl('', [Validators.required, Validators.pattern('^[0-9]{10}$')]),
+    // pattern for 11 digit phone number starting with 01 
+    phone : new FormControl('', [Validators.required, Validators.pattern('^01[0-9]{9}$')]),
   }, this.passwordValidator
 );
 
@@ -31,8 +34,16 @@ export class RegisterComponent {
     const rePassword = control.get('rePassword')?.value;
   return password === rePassword ? null : { passwordMismatch: true };
   }
-registerSubmit(){
 
-}
+registerSubmit(){
+   if (this.formGroup.valid) {
+     console.log(this.formGroup.value);
+     this.formGroup.reset();
+   } else {
+    this.formGroup.markAllAsTouched();
+     console.log(this.formGroup.errors);
+   }
+   
+    }
 
 }
