@@ -1,50 +1,152 @@
 <section>
-    <div class="container register-container m-auto mt-5 p-4 border-round-lg shadow-2 "> 
-           <!-- <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><path fill="#000000" fill-rule="evenodd" d="M12 20a8 8 0 0 1-5-1.8v-.6c0-1.8 1.5-3.3 3.3-3.3h3.4c1.8 0 3.3 1.5 3.3 3.3v.6a8 8 0 0 1-5 1.8M2 12a10 10 0 1 1 10 10A10 10 0 0 1 2 12m10-5a3.3 3.3 0 0 0-3.3 3.3c0 1.7 1.5 3.2 3.3 3.2c1.8 0 3.3-1.5 3.3-3.3C15.3 8.6 13.8 7 12 7" clip-rule="evenodd"/></svg> -->
-           <form [formGroup]="formGroup" (ngSubmit)="registerSubmit()">
-            <h2 class="text-center color-primary">Create New Account:</h2>
-            <div class="p-2">
+  <div class="container register-container m-auto mt-5 p-4 border-round-lg shadow-2">
+    <form [formGroup]="formGroup" (ngSubmit)="registerSubmit()">
+      <h2 class="text-center color-primary mb-4">Create New Account:</h2>
 
-                <p-inputGroup>
-                    <p-inputGroupAddon>
-                        <i class="pi pi-user"></i>
-                    </p-inputGroupAddon>
-                    <input pInputText placeholder="Username" formControlName="username" />
-                </p-inputGroup>
-                
-                <p-inputGroup class="mt-3">
-                    <p-inputGroupAddon>
-                        <i class="pi pi-envelope"></i>
-                    </p-inputGroupAddon>
-                    <input pInputText placeholder="Email" formControlName="email" />
-                </p-inputGroup>
-   
-                
-                <p-inputGroup class="mt-3">
-                    <p-inputGroupAddon>
-                        <i class="pi pi-lock"></i>
-                    </p-inputGroupAddon>
-                    <input pInputText type="password" placeholder="Password" formControlName="password" />
-                </p-inputGroup>
-             
-                <p-inputGroup class="mt-3">
-                    <p-inputGroupAddon>
-                        <i class="pi pi-lock"></i>
-                    </p-inputGroupAddon>
-                    <input pInputText type="password" placeholder="Password" formControlName="rePassword" />
-                </p-inputGroup>
-             
-                <p-inputGroup class="mt-3">
-                    <p-inputGroupAddon>
-                        <i class="pi pi-phone"></i>
-                    </p-inputGroupAddon>
-                    <input pInputText type="tel" placeholder="phone number" formControlName="phone" />
-                </p-inputGroup>
-             
-             </div>
-            <div class="p-2 flex justify-content-center">
-               <p-button label="Register" severity="primary" />
-            </div>
-        </form>
-    </div>
+      <div class="p-fluid grid formgrid justify-content-center align-items-start">
+
+        <!-- Username -->
+        <div class="col-12 md:col-6 mt-1">
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              <i class="pi pi-user"></i>
+            </p-inputGroupAddon>
+            <input pInputText placeholder="Username" formControlName="username" />
+          </p-inputGroup>
+          <small *ngIf="formGroup.get('username')?.invalid && formGroup.get('username')?.touched"
+                 class="p-error block mt-1">
+            <ng-container *ngIf="formGroup.get('username')?.errors?.['required']">
+              Username is required.
+            </ng-container>
+            <ng-container *ngIf="formGroup.get('username')?.errors?.['minlength']">
+              Username must be at least 3 characters long.
+            </ng-container>
+            <ng-container *ngIf="formGroup.get('username')?.errors?.['maxlength']">
+              Username cannot exceed 20 characters.
+            </ng-container>
+          </small>
+        </div>
+
+        <!-- Email -->
+        <div class="col-12 md:col-6 mt-1">
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              <i class="pi pi-envelope"></i>
+            </p-inputGroupAddon>
+            <input pInputText placeholder="Email" formControlName="email" />
+          </p-inputGroup>
+          <small *ngIf="formGroup.get('email')?.invalid && formGroup.get('email')?.touched"
+                 class="p-error block mt-1">
+            <ng-container *ngIf="formGroup.get('email')?.errors?.['required']">
+              Email is required.
+            </ng-container>
+            <ng-container *ngIf="formGroup.get('email')?.errors?.['email']">
+              Please enter a valid email address.
+            </ng-container>
+          </small>
+        </div>
+
+        <!-- Password -->
+        <div class="col-12 md:col-6 mt-1">
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              <i class="pi pi-lock"></i>
+            </p-inputGroupAddon>
+            <p-password
+              placeholder="Password"
+              formControlName="password"
+              [feedback]="false"
+              [toggleMask]="true"
+            ></p-password>
+          </p-inputGroup>
+          <small *ngIf="formGroup.get('password')?.invalid && formGroup.get('password')?.touched"
+                 class="p-error block mt-1">
+            <ng-container *ngIf="formGroup.get('password')?.errors?.['required']">
+              Password is required.
+            </ng-container>
+            <ng-container *ngIf="formGroup.get('password')?.errors?.['minlength']">
+              Password must be at least 6 characters long.
+            </ng-container>
+            <ng-container *ngIf="formGroup.get('password')?.errors?.['pattern']">
+              Password must contain at least one uppercase letter, one lowercase letter,
+              one number, and one special character.
+            </ng-container>
+          </small>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="col-12 md:col-6 mt-1">
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              <i class="pi pi-lock"></i>
+            </p-inputGroupAddon>
+            <p-password
+              placeholder="Confirm Password"
+              formControlName="rePassword"
+              [feedback]="false"
+              [toggleMask]="true"
+            ></p-password>
+          </p-inputGroup>
+          <small *ngIf="formGroup.errors?.['passwordMismatch'] && formGroup.get('rePassword')?.touched"
+                 class="p-error block mt-1">
+            Passwords do not match.
+          </small>
+        </div>
+
+        <!-- Phone -->
+        <div class="col-12 md:col-6 mt-1">
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              <i class="pi pi-phone"></i>
+            </p-inputGroupAddon>
+            <input
+              pInputText
+              type="number"
+              placeholder="Phone number"
+              formControlName="phone"
+            />
+          </p-inputGroup>
+          <small *ngIf="formGroup.get('phone')?.invalid && formGroup.get('phone')?.touched"
+                 class="p-error block mt-1">
+            <ng-container *ngIf="formGroup.get('phone')?.errors?.['required']">
+              Phone number is required.
+            </ng-container>
+            <ng-container *ngIf="formGroup.get('phone')?.errors?.['pattern']">
+              Please enter a valid 10-digit phone number.
+            </ng-container>
+          </small>
+        </div>
+
+        
+        <!-- address -->
+        <div class="col-12 md:col-6 mt-1">
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              <i class="pi pi-map"></i>
+            </p-inputGroupAddon>
+            <input
+              pInputText
+              type="text"
+              placeholder="Address"
+              formControlName="address"
+            />
+          </p-inputGroup>
+          <small *ngIf="formGroup.get('address')?.invalid && formGroup.get('address')?.touched"
+                 class="p-error block mt-1">
+            <ng-container *ngIf="formGroup.get('address')?.errors?.['required']">
+              Address is required.
+            </ng-container>
+          </small>
+        </div>
+
+
+
+        <!-- Submit Button -->
+        <div class="col-12 flex justify-content-center mt-3">
+          <p-button label="Register" severity="primary" type="submit" />
+        </div>
+
+      </div>
+    </form>
+  </div>
 </section>
