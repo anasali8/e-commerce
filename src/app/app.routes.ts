@@ -20,9 +20,6 @@ export const routes: Routes = [
       import('./layout/user-layout/user-layout.component').then(
         (m) => m.UserLayoutComponent
       ),
-<<<<<<< Updated upstream
-=======
     canActivate: [authGuard],
->>>>>>> Stashed changes
   },
 ];
