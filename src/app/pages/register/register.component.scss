@@ -30,3 +30,24 @@
 .text-small{
     font-size: 9px !important;
 }
+
+::ng-deep .small-error .p-message {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.8rem;
+  border-radius: 4px;
+}
+
+::ng-deep .small-error .p-message-icon {
+  font-size: 0.9rem;
+}
+
+.validation-msg {
+  display: block;
+  margin-left: 2.2rem;
+}
+
+.register-page{
+  
+    justify-content: center;
+}
+

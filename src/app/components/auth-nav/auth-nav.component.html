@@ -1,4 +1,4 @@
-<div class="card">
+<div >
     <p-menubar>
         <ng-template pTemplate="start">
           <img src="logo.png" width="50px" alt="logo">
@@ -9,6 +9,7 @@
             @for (item of items; track $index) {
             <a
             [routerLink]="[item?.['path']]"
+            routerLinkActive="active"
             pRipple class="p-menuitem-link p-link inline-flex justify-content-center align-items-center
             p-2 color-primary"
             >

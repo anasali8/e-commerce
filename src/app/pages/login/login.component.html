@@ -1,26 +1,55 @@
-<section class="login-page">
-    <div class="container flex flex-column justify-content-center login-container m-auto mt-5 p-4 border-round-lg shadow-2 ">
-           <form [formGroup]="formGroup" (ngSubmit)="loginSubmit()">
+<main class="login-page p-5">
+    <div
+        class="container flex flex-column justify-content-center login-container m-auto border-round-lg shadow-2">
+        <form [formGroup]="formGroup" (ngSubmit)="loginSubmit()">
             <h2 class="text-center color-primary">Sign In</h2>
             <div class="p-2">
+
                 <p-inputGroup class="mt-3">
                     <p-inputGroupAddon>
                         <i class="pi pi-envelope"></i>
                     </p-inputGroupAddon>
-                    <input pInputText placeholder="Email" formControlName="email" />
+                    <input pInputText placeholder="Email" id="email" formControlName="email" />
                 </p-inputGroup>
-
+                <div *ngIf="formGroup.get('email')?.invalid && formGroup.get('email')?.touched"
+                    class="validation-msg mt-1">
+                    <ng-container *ngIf="formGroup.get('email')?.errors?.['required']">
+                        <p-messages class="small-error" [value]="[{severity:'error', detail:'Email is required.'}]"
+                            [enableService]="false" [closable]="false">
+                        </p-messages>
+                    </ng-container>
+                    <ng-container *ngIf="formGroup.get('email')?.errors?.['email']">
+                        <p-messages class="small-error"
+                            [value]="[{severity:'error', detail:'Please enter a valid email address.'}]"
+                            [enableService]="false" [closable]="false">
+                        </p-messages>
+                    </ng-container>
+                </div>
 
                 <p-inputGroup class="mt-3">
                     <p-inputGroupAddon>
                         <i class="pi pi-lock"></i>
                     </p-inputGroupAddon>
-                    <input pInputText type="password" placeholder="Password" formControlName="password" />
+                    <input pInputText type="password" placeholder="Password" id="password" formControlName="password" />
                 </p-inputGroup>
-             </div>
+                <div *ngIf="formGroup.get('password')?.invalid && formGroup.get('password')?.touched"
+                    class="validation-msg mt-1">
+                    <ng-container *ngIf="formGroup.get('password')?.errors?.['required']">
+                        <p-messages class="small-error" [value]="[{severity:'error', detail:'Password is required.'}]"
+                            [enableService]="false" [closable]="false"></p-messages>
+                    </ng-container>
+                    <ng-container *ngIf="formGroup.get('password')?.errors?.['minlength']">
+                        <p-messages class="small-error"
+                            [value]="[{severity:'error', detail:'Password must be at least 6 characters long.'}]"
+                            [enableService]="false" [closable]="false"></p-messages>
+                    </ng-container>
+                </div>
+                
+            </div>
             <div class="p-2 flex justify-content-center">
-               <p-button label="Login" class="btn-colored" severity="primary" />
+                <p-button label="Login" class="btn-colored" severity="primary" type="submit" [disabled]="!isFormValid" />
             </div>
         </form>
     </div>
-</section>
+</main>
+<ngx-spinner bdColor = "rgba(74,3,95,0.09)" size = "medium" color = "#af46ec" type = "ball-spin-fade" [fullScreen] = "true"></ngx-spinner>
