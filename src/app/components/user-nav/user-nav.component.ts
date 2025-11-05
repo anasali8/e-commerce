@@ -22,17 +22,6 @@ export class UserNavComponent implements OnInit {
     ngOnInit() {
         this.items = [
             {
-<<<<<<< Updated upstream
-                label: 'Login',
-                icon: 'pi pi-sign-in',
-                path: 'login'
-            },
-            {
-                label: 'Register',
-                icon: 'pi pi-user-plus',
-                path: 'register'
-            }
-=======
                 label: 'Home',
                 icon: 'pi pi-home',
                 path: 'home',
@@ -54,7 +43,6 @@ export class UserNavComponent implements OnInit {
                 icon: 'pi pi-bars',
                 path: 'categories',
             },
->>>>>>> Stashed changes
         ];
     }
 }
