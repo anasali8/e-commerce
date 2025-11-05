@@ -10,14 +10,14 @@ import { log } from 'node:console';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-user-nav',
-  standalone: true,
-  imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule],
-  templateUrl: './user-nav.component.html',
-  styleUrl: './user-nav.component.scss'
+    selector: 'app-user-nav',
+    standalone: true,
+    imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule],
+    templateUrl: './user-nav.component.html',
+    styleUrl: './user-nav.component.scss'
 })
 export class UserNavComponent implements OnInit {
- items: MenuItem[] | undefined;
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
