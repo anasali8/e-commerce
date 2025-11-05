@@ -23,26 +23,24 @@ export class UserNavComponent implements OnInit {
         this.items = [
             {
                 label: 'Home',
-                icon: 'pi pi-home',
-                path: 'home',
-
+                icon: 'pi pi-sign-in',
             },
             {
                 label: 'Cart',
-                icon: 'pi pi-cart-arrow-down',
-                path: 'cart',
-
+                icon: 'pi pi-user-plus',
             },
-            {
+             {
                 label: 'products',
-                icon: 'pi pi-box',
-                path: 'products',
+                icon: 'pi pi-user-plus',
             },
-            {
+             {
                 label: 'Categories',
-                icon: 'pi pi-bars',
-                path: 'categories',
+                icon: 'pi pi-user-plus',
             },
+             {
+                label: 'Brands',
+                icon: 'pi pi-user-plus',
+            }
         ];
     }
 }

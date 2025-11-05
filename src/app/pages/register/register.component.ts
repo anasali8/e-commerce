@@ -1,49 +1,101 @@
 import { Component } from '@angular/core';
 
-import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { CommonModule } from '@angular/common';
-import { PasswordModule } from 'primeng/password';
-import { DividerModule } from 'primeng/divider';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+
+import { Message, MessageService } from 'primeng/api';
+import { AuthService } from '../../core/services/auth/auth.service';
+import { NgxSpinnerService } from "ngx-spinner";
+import { Router } from '@angular/router';
+import { SharedModule } from '../../shared/module/shared/shared.module';
+
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule, ButtonModule, DividerModule, CommonModule,PasswordModule],
+  imports: [SharedModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
+  messages: Message[] | undefined = [];
+  
+  constructor(
+    private authService: AuthService,
+    private messageService: MessageService,
+    private spinner: NgxSpinnerService,
+    private router : Router
+  ) {}
 
-  constructor() { }
-  formGroup: FormGroup = new FormGroup({
-    username: new FormControl('', [Validators.required, Validators.maxLength(20), Validators.minLength(3)]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$')]),
-    rePassword : new FormControl('', [Validators.required]),
-    // pattern for 11 digit phone number starting with 01 
-    phone : new FormControl('', [Validators.required, Validators.pattern('^01[0-9]{9}$')]),
-  }, this.passwordValidator
-);
+  formGroup: FormGroup = new FormGroup(
+    {
+      name: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(20),
+        Validators.minLength(3),
+      ]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.pattern(
+          '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$'
+        ),
+      ]),
+      rePassword: new FormControl('', [Validators.required]),
+      phone: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^01[0125][0-9]{8}$/),
+      ]),
+    },
+    this.passwordValidator
+  );
+
+  // enable button when form is valid
+  get isFormValid(): boolean {
+    return this.formGroup.valid;
+  }
+
+
 
   // password matching validator
   passwordValidator(control: AbstractControl) {
     const password = control.get('password')?.value;
     const rePassword = control.get('rePassword')?.value;
-  return password === rePassword ? null : { passwordMismatch: true };
+    return password === rePassword ? null : { passwordMismatch: true };
   }
 
-registerSubmit(){
-   if (this.formGroup.valid) {
-     console.log(this.formGroup.value);
-     this.formGroup.reset();
-   } else {
-    this.formGroup.markAllAsTouched();
-     console.log(this.formGroup.errors);
-   }
-   
-    }
+  registerSubmit() {
+    if (this.formGroup.valid) {
+      this.spinner.show();
 
+      this.authService.registerUser(this.formGroup.value).subscribe({
+        next: (response) => {
+          this.spinner.hide();
+          this.show('success', 'Success', 'Registeration Successful');
+          this.router.navigate(['../auth/login']);
+        },
+        error: (err) => {
+          this.spinner.hide();
+          this.show('error', 'Error', err.error.message);
+          
+          
+        }
+      });
+    } else {
+      this.formGroup.markAllAsTouched();
+      console.log(this.formGroup.errors);
+    }
+  }
+
+  show(severity: string, summary: string, detail: string) {
+    this.messageService.add({
+      severity: severity,
+      summary: summary,
+      detail: detail,
+    });
+  }
 }

@@ -1,7 +1,7 @@
-<div class="card">
-    <p-menubar>
+<div>
+    <p-menubar [model]="items">
         <ng-template pTemplate="start">
-            <img src="logo.png" width="50px" alt="logo">
+                   <img src="logo.png" width="50px" alt="logo">
 
         </ng-template>
         <ng-template pTemplate="item" let-item let-root="root">
