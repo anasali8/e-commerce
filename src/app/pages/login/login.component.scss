@@ -1,0 +1,26 @@
+.text-pink-400{
+    color: #ec4899 !important;
+}
+.color-info{
+    color: #3b82f6 !important;
+}
+.color-primary{
+      background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--primary-color) 40%, #3b82f6),
+    color-mix(in srgb, #ec4899 65%, var(--primary-600)),
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+.login-container{
+    max-width: 50%;
+}
+
+.login-page{
+    justify-content: center;
+}
+

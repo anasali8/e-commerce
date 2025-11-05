@@ -1,152 +1,140 @@
-<section>
-  <div class="container register-container m-auto mt-5 p-4 border-round-lg shadow-2">
+<main class="register-page p-5">
+  <div class="container register-container m-auto p-4 border-round-lg shadow-2">
     <form [formGroup]="formGroup" (ngSubmit)="registerSubmit()">
       <h2 class="text-center color-primary mb-4">Create New Account:</h2>
 
-      <div class="p-fluid grid formgrid justify-content-center align-items-start">
+      <div class="p-fluid flex flex-column gap-3">
 
         <!-- Username -->
-        <div class="col-12 md:col-6 mt-1">
+        <div>
           <p-inputGroup>
             <p-inputGroupAddon>
               <i class="pi pi-user"></i>
             </p-inputGroupAddon>
-            <input pInputText placeholder="Username" formControlName="username" />
+            <input pInputText id="name" placeholder="Username" formControlName="name" />
           </p-inputGroup>
-          <small *ngIf="formGroup.get('username')?.invalid && formGroup.get('username')?.touched"
-                 class="p-error block mt-1">
-            <ng-container *ngIf="formGroup.get('username')?.errors?.['required']">
-              Username is required.
+          <div *ngIf="formGroup.get('name')?.invalid && formGroup.get('name')?.touched" class="validation-msg mt-1">
+            <ng-container *ngIf="formGroup.get('name')?.errors?.['required']">
+              <p-messages
+                class="small-error"
+                [value]="[{severity:'error', detail:'Username is required.'}]"
+                [enableService]="false"
+                [closable]="false">
+              </p-messages>
             </ng-container>
-            <ng-container *ngIf="formGroup.get('username')?.errors?.['minlength']">
-              Username must be at least 3 characters long.
+            <ng-container *ngIf="formGroup.get('name')?.errors?.['minlength']">
+              <p-messages
+                class="small-error"
+                [value]="[{severity:'error', detail:'Username must be at least 3 characters long.'}]"
+                [enableService]="false"
+                [closable]="false">
+              </p-messages>
             </ng-container>
-            <ng-container *ngIf="formGroup.get('username')?.errors?.['maxlength']">
-              Username cannot exceed 20 characters.
-            </ng-container>
-          </small>
+          </div>
         </div>
 
         <!-- Email -->
-        <div class="col-12 md:col-6 mt-1">
+        <div>
           <p-inputGroup>
             <p-inputGroupAddon>
               <i class="pi pi-envelope"></i>
             </p-inputGroupAddon>
-            <input pInputText placeholder="Email" formControlName="email" />
+            <input pInputText id="email" placeholder="Email" formControlName="email" />
           </p-inputGroup>
-          <small *ngIf="formGroup.get('email')?.invalid && formGroup.get('email')?.touched"
-                 class="p-error block mt-1">
+          <div *ngIf="formGroup.get('email')?.invalid && formGroup.get('email')?.touched" class="validation-msg mt-1">
             <ng-container *ngIf="formGroup.get('email')?.errors?.['required']">
-              Email is required.
+              <p-messages
+                class="small-error"
+                [value]="[{severity:'error', detail:'Email is required.'}]"
+                [enableService]="false"
+                [closable]="false">
+              </p-messages>
             </ng-container>
             <ng-container *ngIf="formGroup.get('email')?.errors?.['email']">
-              Please enter a valid email address.
+              <p-messages
+                class="small-error"
+                [value]="[{severity:'error', detail:'Please enter a valid email address.'}]"
+                [enableService]="false"
+                [closable]="false">
+              </p-messages>
             </ng-container>
-          </small>
+          </div>
         </div>
 
         <!-- Password -->
-        <div class="col-12 md:col-6 mt-1">
+        <div>
           <p-inputGroup>
             <p-inputGroupAddon>
               <i class="pi pi-lock"></i>
             </p-inputGroupAddon>
-            <p-password
-              placeholder="Password"
-              formControlName="password"
-              [feedback]="false"
-              [toggleMask]="true"
-            ></p-password>
+            <p-password placeholder="Password" formControlName="password" [feedback]="false" [toggleMask]="true"></p-password>
           </p-inputGroup>
-          <small *ngIf="formGroup.get('password')?.invalid && formGroup.get('password')?.touched"
-                 class="p-error block mt-1">
+          <div *ngIf="formGroup.get('password')?.invalid && formGroup.get('password')?.touched" class="validation-msg mt-1">
             <ng-container *ngIf="formGroup.get('password')?.errors?.['required']">
-              Password is required.
+              <p-messages class="small-error"
+                [value]="[{severity:'error', detail:'Password is required.'}]"
+                [enableService]="false"
+                [closable]="false"></p-messages>
             </ng-container>
             <ng-container *ngIf="formGroup.get('password')?.errors?.['minlength']">
-              Password must be at least 6 characters long.
+              <p-messages class="small-error"
+                [value]="[{severity:'error', detail:'Password must be at least 6 characters long.'}]"
+                [enableService]="false"
+                [closable]="false"></p-messages>
             </ng-container>
-            <ng-container *ngIf="formGroup.get('password')?.errors?.['pattern']">
-              Password must contain at least one uppercase letter, one lowercase letter,
-              one number, and one special character.
-            </ng-container>
-          </small>
+          </div>
         </div>
 
         <!-- Confirm Password -->
-        <div class="col-12 md:col-6 mt-1">
+        <div>
           <p-inputGroup>
             <p-inputGroupAddon>
               <i class="pi pi-lock"></i>
             </p-inputGroupAddon>
-            <p-password
-              placeholder="Confirm Password"
-              formControlName="rePassword"
-              [feedback]="false"
-              [toggleMask]="true"
-            ></p-password>
+            <p-password placeholder="Confirm Password" formControlName="rePassword" [feedback]="false" [toggleMask]="true"></p-password>
           </p-inputGroup>
-          <small *ngIf="formGroup.errors?.['passwordMismatch'] && formGroup.get('rePassword')?.touched"
-                 class="p-error block mt-1">
-            Passwords do not match.
-          </small>
+          <div *ngIf="formGroup.errors?.['passwordMismatch'] && formGroup.get('rePassword')?.touched" class="validation-msg mt-1">
+            <p-messages
+              class="small-error"
+              [value]="[{severity:'error', detail:'Passwords do not match.'}]"
+              [enableService]="false"
+              [closable]="false">
+            </p-messages>
+          </div>
         </div>
 
         <!-- Phone -->
-        <div class="col-12 md:col-6 mt-1">
+        <div>
           <p-inputGroup>
             <p-inputGroupAddon>
               <i class="pi pi-phone"></i>
             </p-inputGroupAddon>
-            <input
-              pInputText
-              type="number"
-              placeholder="Phone number"
-              formControlName="phone"
-            />
+            <input pInputText id="phone" placeholder="Phone number" formControlName="phone" />
           </p-inputGroup>
-          <small *ngIf="formGroup.get('phone')?.invalid && formGroup.get('phone')?.touched"
-                 class="p-error block mt-1">
+          <div *ngIf="formGroup.get('phone')?.invalid && formGroup.get('phone')?.touched" class="validation-msg mt-1">
             <ng-container *ngIf="formGroup.get('phone')?.errors?.['required']">
-              Phone number is required.
+              <p-messages class="small-error"
+                [value]="[{severity:'error', detail:'Phone number is required.'}]"
+                [enableService]="false"
+                [closable]="false"></p-messages>
             </ng-container>
             <ng-container *ngIf="formGroup.get('phone')?.errors?.['pattern']">
-              Please enter a valid 10-digit phone number.
+              <p-messages class="small-error"
+                [value]="[{severity:'error', detail:'Please enter a valid 11-digit phone number.'}]"
+                [enableService]="false"
+                [closable]="false"></p-messages>
             </ng-container>
-          </small>
+          </div>
         </div>
-
-        
-        <!-- address -->
-        <div class="col-12 md:col-6 mt-1">
-          <p-inputGroup>
-            <p-inputGroupAddon>
-              <i class="pi pi-map"></i>
-            </p-inputGroupAddon>
-            <input
-              pInputText
-              type="text"
-              placeholder="Address"
-              formControlName="address"
-            />
-          </p-inputGroup>
-          <small *ngIf="formGroup.get('address')?.invalid && formGroup.get('address')?.touched"
-                 class="p-error block mt-1">
-            <ng-container *ngIf="formGroup.get('address')?.errors?.['required']">
-              Address is required.
-            </ng-container>
-          </small>
-        </div>
-
-
 
         <!-- Submit Button -->
-        <div class="col-12 flex justify-content-center mt-3">
-          <p-button label="Register" severity="primary" type="submit" />
+        <div class="flex justify-content-center mt-3">
+          <p-button label="Register" severity="primary" type="submit" [disabled]="!isFormValid"></p-button>
         </div>
 
       </div>
     </form>
+     <p-toast />
   </div>
-</section>
+</main>
+<ngx-spinner bdColor = "rgba(74,3,95,0.09)" size = "medium" color = "#af46ec" type = "ball-spin-fade" [fullScreen] = "true"></ngx-spinner>

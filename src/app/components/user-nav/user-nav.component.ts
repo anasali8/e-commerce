@@ -22,14 +22,24 @@ export class UserNavComponent implements OnInit {
     ngOnInit() {
         this.items = [
             {
-                label: 'Login',
+                label: 'Home',
                 icon: 'pi pi-sign-in',
-                path: 'login'
             },
             {
-                label: 'Register',
+                label: 'Cart',
                 icon: 'pi pi-user-plus',
-                path: 'register'
+            },
+             {
+                label: 'products',
+                icon: 'pi pi-user-plus',
+            },
+             {
+                label: 'Categories',
+                icon: 'pi pi-user-plus',
+            },
+             {
+                label: 'Brands',
+                icon: 'pi pi-user-plus',
             }
         ];
     }
