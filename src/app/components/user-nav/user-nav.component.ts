@@ -6,19 +6,19 @@ import { AvatarModule } from 'primeng/avatar';
 import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
 import { RippleModule } from 'primeng/ripple';
-import { log } from 'node:console';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'app-user-nav',
-    standalone: true,
-    imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule],
-    templateUrl: './user-nav.component.html',
-    styleUrl: './user-nav.component.scss'
+  selector: 'app-user-nav',
+  standalone: true,
+  imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule, ButtonModule],
+  templateUrl: './user-nav.component.html',
+  styleUrl: './user-nav.component.scss'
 })
 export class UserNavComponent implements OnInit {
-    items: MenuItem[] | undefined;
-
+ items: MenuItem[] | undefined;
+    constructor(private router: Router) { }
     ngOnInit() {
         this.items = [
             {
@@ -42,5 +42,13 @@ export class UserNavComponent implements OnInit {
                 icon: 'pi pi-user-plus',
             }
         ];
+    }
+
+    signout() {
+        // remove token from local storage
+        localStorage.removeItem('userToken');
+        // redirect to login page
+          this.router.navigate(['../auth/login']);
+
     }
 }

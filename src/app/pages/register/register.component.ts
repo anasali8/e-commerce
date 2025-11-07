@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ConfirmationService } from 'primeng/api';
 
 import {
   AbstractControl,
@@ -9,7 +10,7 @@ import {
 
 import { Message, MessageService } from 'primeng/api';
 import { AuthService } from '../../core/services/auth/auth.service';
-import { NgxSpinnerService } from "ngx-spinner";
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { SharedModule } from '../../shared/module/shared/shared.module';
 
@@ -22,12 +23,13 @@ import { SharedModule } from '../../shared/module/shared/shared.module';
 })
 export class RegisterComponent {
   messages: Message[] | undefined = [];
-  
+
   constructor(
     private authService: AuthService,
     private messageService: MessageService,
     private spinner: NgxSpinnerService,
-    private router : Router
+    private router: Router,
+    private confirmationService: ConfirmationService
   ) {}
 
   formGroup: FormGroup = new FormGroup(
@@ -59,8 +61,6 @@ export class RegisterComponent {
     return this.formGroup.valid;
   }
 
-
-
   // password matching validator
   passwordValidator(control: AbstractControl) {
     const password = control.get('password')?.value;
@@ -73,7 +73,7 @@ export class RegisterComponent {
       this.spinner.show();
 
       this.authService.registerUser(this.formGroup.value).subscribe({
-        next: (response) => {
+        next: () => {
           this.spinner.hide();
           this.show('success', 'Success', 'Registeration Successful');
           this.router.navigate(['../auth/login']);
@@ -81,9 +81,7 @@ export class RegisterComponent {
         error: (err) => {
           this.spinner.hide();
           this.show('error', 'Error', err.error.message);
-          
-          
-        }
+        },
       });
     } else {
       this.formGroup.markAllAsTouched();
@@ -96,6 +94,38 @@ export class RegisterComponent {
       severity: severity,
       summary: summary,
       detail: detail,
+    });
+  }
+  async confirmExit(msg: string): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.confirmationService.confirm({
+        header: 'Confirmation',
+        message: msg,
+        acceptLabel: 'Yes',
+        rejectLabel: 'No',
+        rejectButtonStyleClass: 'p-button-sm',
+        acceptButtonStyleClass: 'p-button-outlined p-button-sm',
+        acceptIcon: 'pi pi-check mr-2',
+        rejectIcon: 'pi pi-times mr-2',
+        accept: () => {
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Confirmed',
+            detail: 'You have accepted',
+            life: 3000,
+          });
+          resolve(true);
+        },
+        reject: () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Rejected',
+            detail: 'You have rejected',
+            life: 3000,
+          });
+          resolve(false);
+        },
+      });
     });
   }
 }

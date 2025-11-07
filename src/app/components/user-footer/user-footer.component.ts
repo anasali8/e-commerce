@@ -12,5 +12,6 @@ import { RouterLink } from '@angular/router';
   styleUrl: './user-footer.component.scss'
 })
 export class UserFooterComponent {
-  currentYear: number = new Date().getFullYear();
+    currentYear: number = new Date().getFullYear();
+
 }
