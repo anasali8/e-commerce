@@ -1,19 +1,15 @@
-<div >
+<div>
     <p-menubar>
         <ng-template pTemplate="start">
-          <img src="logo.png" width="50px" alt="logo">
+            <img src="logo.png" width="50px" alt="logo">
         </ng-template>
 
 
-        <ng-template pTemplate="end" >
+        <ng-template pTemplate="end">
             @for (item of items; track $index) {
-            <a
-            [routerLink]="[item?.['path']]"
-            routerLinkActive="active"
-            pRipple class="p-menuitem-link p-link inline-flex justify-content-center align-items-center
-            p-2 color-primary"
-            >
-                <span [class]="item.icon" ></span>
+            <a [routerLink]="[item?.['path']]" routerLinkActive="active" pRipple class="p-menuitem-link p-link inline-flex justify-content-center align-items-center
+            p-2 color-primary">
+                <span [class]="item.icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
 
             </a>

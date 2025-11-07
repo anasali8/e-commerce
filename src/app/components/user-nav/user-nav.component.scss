@@ -1,0 +1,14 @@
+.color-primary {
+    color: #3b82f6;
+    font-weight: 700;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        color: #144491;
+
+    }
+}
+
+.active {
+    color: #144491;
+}
