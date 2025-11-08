@@ -1,7 +1,55 @@
-<!-- here we display the recent products that is under the carousel -->
+@if (loading) {
+<div class="loading-container">
+    <p-progressSpinner strokeWidth="4" animationDuration="1s">
+    </p-progressSpinner>
+    <p>Loading products...</p>
+</div>
+} @else if (products.length === 0) {
+<div class="empty-state">
+    <i class="pi pi-shopping-cart" style="font-size: 4rem;"></i>
+    <h3>No products available</h3>
+    <p>Check back soon for new arrivals!</p>
+</div>
+} @else {
+<div class="home-container">
+    <div class="grid">
+        @for (product of products; track product.id) {
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3">
+            <p-card class="product-card">
+                <ng-template pTemplate="header">
+                    <img [src]="product.imageCover" alt="{{ product.title }}" class="product-image" />
+                </ng-template>
 
-<!-- you have to loop through the products array and display each product -->
+                <div class="card-body">
+                    <h3 class="product-title">{{ product.title }}</h3>
+                    <p class="product-brand">{{ product.brand.name }}</p>
+                    <p class="product-desc">
+                        {{ product.description | slice: 0: 80 }}...
+                    </p>
 
-<!-- Note that you have to use the shared layout for each product item, 
-    it means you will use the product-card component and pass the product data to it. using @Input decorator.
--->
+                    <div class="product-price">
+                        <strong>${{ product.price }}</strong>
+                    </div>
+
+                    <div class="product-rating">
+                        ⭐ {{ product.ratingsAverage }} ({{ product.ratingsQuantity }} ratings)
+                    </div>
+                </div>
+
+                <ng-template pTemplate="footer">
+                    <button pButton type="button" label="Add to Cart" icon="pi pi-shopping-cart"
+                        class="p-button-rounded" (onClick)="addToCart(product.id)">
+                    </button>
+
+                    <button pButton type="button" label="Details" icon="pi pi-info-circle"
+                        class="p-button-rounded p-button-secondary ml-2" [routerLink]="['/Products', product.id]">
+                    </button>
+                </ng-template>
+            </p-card>
+        </div>
+        }
+    </div>
+</div>
+}
+
+
