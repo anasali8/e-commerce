@@ -37,6 +37,8 @@ export const routes: Routes = [
         (m) => m.UserLayoutComponent
       ),
       children: [
+        { path: '', redirectTo: 'home', pathMatch: 'full' },
+
         {
           path:'home',
           loadComponent: ()=> import('./pages/home/home.component').then((h)=> h.HomeComponent)
