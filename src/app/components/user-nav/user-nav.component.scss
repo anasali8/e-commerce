@@ -1,14 +1,35 @@
 .color-primary {
-    color: #3b82f6;
+    color: #6d206e;
     font-weight: 700;
     transition: all 0.3s ease-in-out;
 
     &:hover {
-        color: #144491;
-
+        color: #8b75d9;
+     
     }
 }
 
 .active {
-    color: #144491;
+    background: #f0f0f0;
+        border-radius: 10px;
+    color: #8b75d9;
+}
+
+.menu-item-bar  .p-menuitem-link {
+  color: #0f172a;                 /* النص */
+  font-weight: 500;
+  padding: 0.75rem 1rem;
+  transition: 0.2s;
+  &:hover {
+    background: #f1f5f9;            /* الخلفية عند hover */
+    color: #2563eb;                 /* لون النص عند hover */
+  }
+}
+
+.menu-item-bar  .pi {
+  color: #a05eb8;                 /* لون الأيقونة */
+}
+
+.menu-item-bar  .p-menuitem-separator {
+  border-top: 1px solid #e2e8f0;
 }

@@ -2,7 +2,6 @@
     <p-menubar [model]="items">
         <ng-template pTemplate="start">
             <img src="logo.png" width="50px" alt="logo">
-
         </ng-template>
         <ng-template pTemplate="item" let-item let-root="root">
             <a pRipple class="flex align-items-center p-menuitem-link color-primary" [routerLink]="[item?.['path']]"
@@ -16,8 +15,14 @@
                 <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
             </a>
         </ng-template>
+        
         <ng-template pTemplate="end">
-            <a class="p-menuitem-link" label="Sign Out"> <span class="pi pi-sign-out mr-2" (click)="signout()"></span> sign out</a>
+            <div class="flex items-center">
+                <p-menu #userMenu [popup]="true" [model]="accountItem" styleClass="menu-item-bar"></p-menu>
+                <a pButton type="button" icon="pi pi-user" class="p-button-text gap-3 color-primary" (click)="userMenu.toggle($event)" >
+                {{ userName  }}
+                </a>
+            </div>
         </ng-template>
     </p-menubar>
 </div>

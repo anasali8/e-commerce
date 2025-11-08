@@ -37,10 +37,10 @@
               }
             ],
             "styles": [
-               "node_modules/ngx-spinner/animations/ball-spin-fade.css" ,
-              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/ngx-spinner/animations/ball-spin-fade.css",
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.css",
               "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/lara-light-indigo/theme.css",
               "node_modules/primeflex/primeflex.css",
               "src/styles.scss"
             ],
@@ -113,5 +113,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "2fc3ac6a-b978-4174-a6d1-a645e23bcdf6"
   }
 }
