@@ -36,6 +36,12 @@ export const routes: Routes = [
       import('./layout/user-layout/user-layout.component').then(
         (m) => m.UserLayoutComponent
       ),
+      children: [
+        {
+          path:'home',
+          loadComponent: ()=> import('./pages/home/home.component').then((h)=> h.HomeComponent)
+        }
+      ],
     canActivate: [authGuard],
   },
 

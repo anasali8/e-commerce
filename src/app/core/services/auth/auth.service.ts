@@ -10,6 +10,7 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class AuthService {
   private platformId = inject(PLATFORM_ID);
+  
   constructor(private httpClient: HttpClient) {}
   
   registerUser(userData: IRegisterUser): Observable<any> {
