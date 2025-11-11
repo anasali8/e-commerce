@@ -15,14 +15,30 @@
                 <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
             </a>
         </ng-template>
-        
+
         <ng-template pTemplate="end">
-            <div class="flex items-center">
-                <p-menu #userMenu [popup]="true" [model]="accountItem" styleClass="menu-item-bar"></p-menu>
-                <a pButton type="button" icon="pi pi-user" class="p-button-text gap-3 color-primary" (click)="userMenu.toggle($event)" >
-                {{ userName  }}
-                </a>
+            <div class="flex items-center gap-2">
+                <ng-container *ngIf="isLoggedIn">
+                    <p-menu #userMenu [popup]="true" [model]="accountItem" styleClass="menu-item-bar"></p-menu>
+                    <a pButton type="button" icon="pi pi-shopping-cart" class="p-button-text color-primary"
+                        [routerLink]="['./cart']" pTooltip="Cart">
+                    </a>
+                    <a pButton type="button" icon="pi pi-user" class="p-button-text gap-3 color-primary"
+                        (click)="userMenu.toggle($event)">
+                        {{ userName }}
+                    </a>
+                </ng-container>
+
+                <ng-container *ngIf="!isLoggedIn">
+                    <a pButton type="button" icon="pi pi-shopping-cart" class="p-button-text color-primary"
+                        [routerLink]="['./cart']" pTooltip="Cart">
+                    </a>
+                    <a pButton type="button" icon="pi pi-sign-in" label="Sign In" class="p-button-text color-primary"
+                        [routerLink]="['../auth/login']">
+                    </a>
+                </ng-container>
             </div>
         </ng-template>
+
     </p-menubar>
 </div>

@@ -24,71 +24,61 @@ import { RouterModule } from '@angular/router';
 })
 export class UserNavComponent implements OnInit {
 
- items: MenuItem[] = [];
- accountItem: MenuItem[] = [];
+  items: MenuItem[] = [];
+  accountItem: MenuItem[] = [];
 
- userName: string = '';
- 
-    constructor(private router: Router) { }
-    ngOnInit() {
-        this.items = [
-          {
-            label: 'Home',
-            icon: 'pi pi-sign-in',
-            path: './home',
-          },
-          {
-            label: 'Cart',
-            icon: 'pi pi-user-plus',
-            path: './cart',
-          },
-          {
-            label: 'Products',
-            icon: 'pi pi-user-plus',
-            path: './products',
-          },
-          {
-            label: 'Categories',
-            icon: 'pi pi-user-plus',
-            path: './categories',
-          },
-          {
-            label: 'Brands',
-            icon: 'pi pi-user-plus',
-            path: './brands',
-          },
-        ];
+  userName: string = '';
+  isLoggedIn: boolean = false;
 
-        this.accountItem = [
-            {
-                label: 'Profile',
-                icon: 'pi pi-user',
-            },
-            {
-                label: 'Settings',
-                icon: 'pi pi-cog',
-            },
-            {
-                label: 'Signout',
-                icon: 'pi pi-sign-out',
-                command: () => this.signout()
-            }
-        ];
 
-        // Decode JWT to get user name
-        const token = localStorage.getItem('userToken');
-        if (token) {
-            const decodedToken: any = jwtDecode(token);
-            this.userName = decodedToken.name || 'User';
-        }   
-        
+  constructor(private router: Router) { }
+  ngOnInit() {
+    this.items = [
+      {
+        label: 'Home',
+        icon: 'pi pi-sign-in',
+        path: '/user/home',
+      },
+      {
+        label: 'Products',
+        icon: 'pi pi-user-plus',
+        path: './products',
+      },
+      {
+        label: 'Contact',
+        icon: 'pi pi-user-plus',
+        path: '/user/contact',
+      },
+    ];
+
+    this.accountItem = [
+      {
+        label: 'Profile',
+        icon: 'pi pi-user',
+      },
+      {
+        label: 'Settings',
+        icon: 'pi pi-cog',
+      },
+      {
+        label: 'Signout',
+        icon: 'pi pi-sign-out',
+        command: () => this.signout()
+      }
+    ];
+
+    // Decode JWT to get user name
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      this.isLoggedIn = true;
+      const decodedToken: any = jwtDecode(token);
+      this.userName = decodedToken.name || 'User';
     }
+  }
 
-    signout() {
-        // remove token from local storage
-        localStorage.removeItem('userToken');
-        // redirect to login page
-          this.router.navigate(['../auth/login']);
-
-    }
+  signout() {
+    localStorage.removeItem('userToken');
+    this.isLoggedIn = false; // Update authentication status
+    this.router.navigate(['../auth/login']);
+  }
 }
