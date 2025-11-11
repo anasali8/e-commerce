@@ -1,0 +1,35 @@
+<app-user-nav></app-user-nav>
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">Shop Smart, Live Better</h1>
+    <p class="hero-desc">
+      Discover premium products handpicked just for you. Experience seamless shopping with Carti.
+    </p>
+    <button pButton type="button" label="Explore Products" class="p-button-lg p-button-primary" routerLink="/user/home"></button>
+  </div>
+</section>
+
+
+<section class="features p-py-8 p-text-center p-bg-secondary">
+  <h1 class="p-mb-6">Why Choose Carti?</h1>
+  <div class="cards-container">
+    <div class="feature-card" *ngFor="let feature of features">
+      <h3>{{ feature.title }}</h3>
+      <p>{{ feature.description }}</p>
+    </div>
+  </div>
+</section>
+
+
+<section class="cta">
+  <div class="cta-content">
+    <h2>Ready to Start Shopping?</h2>
+    <p>Join thousands of satisfied customers today</p>
+    <div class="cta-buttons">
+      <button pButton label="Shop Now" class="p-button-lg p-button-primary" routerLink="/user/home"></button>
+      <button pButton label="Get in Touch" class="p-button-lg p-button-outlined" routerLink="/user/contact"></button>
+    </div>
+  </div>
+</section>
+
+<app-user-footer></app-user-footer>
