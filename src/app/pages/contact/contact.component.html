@@ -1,0 +1,202 @@
+<div class="contact-page">
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Get in Touch</h1>
+      <p>We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+    </div>
+  </section>
+
+  <div class="main-content">
+    <div class="content-grid">
+      <div class="contact-info">
+        <p-card styleClass="info-card">
+          <ng-template pTemplate="content">
+            <div class="info-content">
+              <div class="icon-wrapper">
+                <i class="pi pi-envelope"></i>
+              </div>
+              <div class="info-text">
+                <h3>Email</h3>
+                <p>support&#64;carti.com</p>
+                <p>sales&#64;carti.com</p>
+              </div>
+            </div>
+          </ng-template>
+        </p-card>
+
+        <p-card styleClass="info-card">
+          <ng-template pTemplate="content">
+            <div class="info-content">
+              <div class="icon-wrapper">
+                <i class="pi pi-phone"></i>
+              </div>
+              <div class="info-text">
+                <h3>Phone</h3>
+                <p>+1 (555) 123-4567</p>
+                <p class="small">Mon-Fri, 9am-6pm EST</p>
+              </div>
+            </div>
+          </ng-template>
+        </p-card>
+
+        <p-card styleClass="info-card">
+          <ng-template pTemplate="content">
+            <div class="info-content">
+              <div class="icon-wrapper">
+                <i class="pi pi-map-marker"></i>
+              </div>
+              <div class="info-text">
+                <h3>Address</h3>
+                <p>
+                  123 Commerce Street<br />
+                  New York, NY 10001<br />
+                  United States
+                </p>
+              </div>
+            </div>
+          </ng-template>
+        </p-card>
+
+        <p-card styleClass="info-card">
+          <ng-template pTemplate="content">
+            <div class="info-content">
+              <div class="icon-wrapper">
+                <i class="pi pi-clock"></i>
+              </div>
+              <div class="info-text">
+                <h3>Hours</h3>
+                <p class="small">
+                  Monday - Friday: 9am - 6pm EST<br />
+                  Saturday: 10am - 4pm EST<br />
+                  Sunday: Closed
+                </p>
+              </div>
+            </div>
+          </ng-template>
+        </p-card>
+      </div>
+
+      <div class="form-section">
+        <p-card styleClass="form-card">
+          <ng-template pTemplate="header">
+            <h2>Send us a Message</h2>
+          </ng-template>
+          <ng-template pTemplate="content">
+            <p-message 
+              *ngIf="isSubmitted" 
+              severity="success" 
+              text="Thank you for your message! We'll get back to you soon."
+              styleClass="mb-4">
+            </p-message>
+
+            <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+              <div class="form-grid">
+                <div class="form-field">
+                  <label for="name">Full Name</label>
+                  <input 
+                    id="name" 
+                    type="text" 
+                    pInputText 
+                    formControlName="name" 
+                    placeholder="John Doe"
+                    class="w-full" />
+                  <small 
+                    *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched" 
+                    class="p-error">
+                    Name is required
+                  </small>
+                </div>
+
+                <div class="form-field">
+                  <label for="email">Email Address</label>
+                  <input 
+                    id="email" 
+                    type="email" 
+                    pInputText 
+                    formControlName="email" 
+                    placeholder="you@example.com"
+                    class="w-full" />
+                  <small 
+                    *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" 
+                    class="p-error">
+                    Valid email is required
+                  </small>
+                </div>
+              </div>
+
+              <div class="form-field full-width">
+                <label for="subject">Subject</label>
+                <input 
+                  id="subject" 
+                  type="text" 
+                  pInputText 
+                  formControlName="subject" 
+                  placeholder="How can we help?"
+                  class="w-full" />
+                <small 
+                  *ngIf="contactForm.get('subject')?.invalid && contactForm.get('subject')?.touched" 
+                  class="p-error">
+                  Subject is required
+                </small>
+              </div>
+
+              <div class="form-field full-width">
+                <label for="message">Message</label>
+                <textarea 
+                  id="message" 
+                  pInputTextarea 
+                  formControlName="message" 
+                  rows="6" 
+                  placeholder="Tell us more about your inquiry..."
+                  class="w-full">
+                </textarea>
+                <small 
+                  *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched" 
+                  class="p-error">
+                  Message is required
+                </small>
+              </div>
+
+              <p-button 
+                type="submit" 
+                label="{{ isLoading ? 'Sending...' : 'Send Message' }}" 
+                [disabled]="contactForm.invalid || isLoading"
+                styleClass="w-full"
+                size="large">
+              </p-button>
+            </form>
+          </ng-template>
+        </p-card>
+
+        <p-card styleClass="faq-card">
+          <ng-template pTemplate="header">
+            <h2>Frequently Asked Questions</h2>
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="faq-item">
+              <h3>What is your return policy?</h3>
+              <p>
+                We offer a 30-day money-back guarantee on all purchases. If you're not satisfied, 
+                simply return the item for a full refund.
+              </p>
+            </div>
+            <div class="faq-item">
+              <h3>How long does shipping take?</h3>
+              <p>
+                Standard shipping takes 5-7 business days. Express shipping is available for faster 
+                delivery within 2-3 business days.
+              </p>
+            </div>
+            <div class="faq-item">
+              <h3>Do you ship internationally?</h3>
+              <p>
+                Yes, we ship to over 50 countries worldwide. International shipping rates vary by 
+                location and are calculated at checkout.
+              </p>
+            </div>
+          </ng-template>
+        </p-card>
+      </div>
+    </div>
+  </div>
+</div>

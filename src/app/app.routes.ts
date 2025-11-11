@@ -5,7 +5,7 @@ import { loginGuard } from './core/guards/login.guard';
 import path from 'path';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'auth', pathMatch: 'full' },
+  { path: '', redirectTo: 'landing', pathMatch: 'full' },
   {
     path: 'auth',
     loadComponent: () =>
@@ -26,7 +26,7 @@ export const routes: Routes = [
           import('./pages/register/register.component').then(
             (r) => r.RegisterComponent
           ),
-          canDeactivate: [registerGuard],
+        canDeactivate: [registerGuard],
       },
     ],
   },
@@ -36,15 +36,28 @@ export const routes: Routes = [
       import('./layout/user-layout/user-layout.component').then(
         (m) => m.UserLayoutComponent
       ),
-      children: [
-        { path: '', redirectTo: 'home', pathMatch: 'full' },
+    children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
 
-        {
-          path:'home',
-          loadComponent: ()=> import('./pages/home/home.component').then((h)=> h.HomeComponent)
-        }
-      ],
+      {
+        path: 'home',
+        loadComponent: () => import('./pages/home/home.component').then((h) => h.HomeComponent)
+      },
+      {
+        path: 'contact',
+        loadComponent: () => import('./pages/contact/contact.component').then((c) => c.ContactComponent)
+      }
+    ],
     canActivate: [authGuard],
+  },
+
+  {
+    path: 'landing',
+    loadComponent: () =>
+      import('./pages/landing/landing.component').then(
+        (m) => m.LandingComponent
+      ),
+
   },
 
   {
@@ -54,6 +67,4 @@ export const routes: Routes = [
         (n) => n.NotFoundComponent
       ),
   }
-
-
 ];

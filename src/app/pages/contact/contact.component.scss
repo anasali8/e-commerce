@@ -1,0 +1,207 @@
+.contact-page {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+
+  // Hero Section
+  .hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 4rem 1rem;
+    border-bottom: 1px solid #e0e0e0;
+
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      color: white;
+
+      h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        margin: 0 0 1rem 0;
+
+        @media screen and (max-width: 768px) {
+          font-size: 2rem;
+        }
+      }
+
+      p {
+        font-size: 1.25rem;
+        margin: 0;
+        opacity: 0.95;
+
+        @media screen and (max-width: 768px) {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+
+  // Main Content
+  .main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 3rem;
+
+      @media screen and (max-width: 1024px) {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+
+  // Contact Information Cards
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .info-content {
+      display: flex;
+      gap: 1rem;
+
+      .icon-wrapper {
+        flex-shrink: 0;
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(102, 126, 234, 0.1);
+        border-radius: 8px;
+
+        i {
+          font-size: 1.5rem;
+          color: #667eea;
+        }
+      }
+
+      .info-text {
+        h3 {
+          font-size: 1.125rem;
+          font-weight: 600;
+          margin: 0 0 0.5rem 0;
+          color: #333;
+        }
+
+        p {
+          margin: 0.25rem 0;
+          color: #666;
+          font-size: 0.95rem;
+
+          &.small {
+            font-size: 0.875rem;
+          }
+        }
+      }
+    }
+  }
+
+  // Form Section
+  .form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    form {
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+
+        @media screen and (max-width: 768px) {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        &.full-width {
+          margin-bottom: 1.5rem;
+        }
+
+        label {
+          font-weight: 500;
+          color: #333;
+          font-size: 0.95rem;
+        }
+
+        input,
+        textarea {
+          width: 100%;
+        }
+
+        .p-error {
+          color: #e24c4c;
+          font-size: 0.875rem;
+          margin-top: 0.25rem;
+        }
+      }
+    }
+
+    // FAQ Styles
+    .faq-item {
+      margin-bottom: 1.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0 0 0.5rem 0;
+        color: #333;
+      }
+
+      p {
+        margin: 0;
+        color: #666;
+        font-size: 0.875rem;
+        line-height: 1.6;
+      }
+    }
+  }
+}
+
+:host ::ng-deep {
+  .info-card .p-card-content {
+    padding: 1.5rem;
+  }
+
+  .form-card,
+  .faq-card {
+    .p-card-header {
+      padding: 1.5rem 1.5rem 0;
+
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 0;
+        color: #333;
+      }
+    }
+
+    .p-card-content {
+      padding: 1.5rem;
+    }
+  }
+
+  .p-button.w-full {
+    width: 100%;
+  }
+
+  .p-message {
+    margin-bottom: 1rem;
+  }
+
+  .mb-4 {
+    margin-bottom: 1.5rem;
+  }
+}
