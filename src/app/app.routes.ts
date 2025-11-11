@@ -5,7 +5,7 @@ import { loginGuard } from './core/guards/login.guard';
 import path from 'path';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'landing', pathMatch: 'full' },
+  { path: '', redirectTo: 'user', pathMatch: 'full' },
   {
     path: 'auth',
     loadComponent: () =>
@@ -13,7 +13,15 @@ export const routes: Routes = [
         (m) => m.AuthLayoutComponent
       ),
     children: [
-      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: '', redirectTo: 'landing', pathMatch: 'full' },
+      {
+        path: 'landing',
+        loadComponent: () =>
+          import('./pages/landing/landing.component').then(
+            (m) => m.LandingComponent
+          ),
+          canActivate: [loginGuard],
+      },
       {
         path: 'login',
         loadComponent: () =>
@@ -46,20 +54,14 @@ export const routes: Routes = [
       {
         path: 'contact',
         loadComponent: () => import('./pages/contact/contact.component').then((c) => c.ContactComponent)
-      }
+      },
+      {
+      path: 'productDetails/:id',
+        loadComponent: () => import('./pages/product-details/product-details.component').then((p) => p.ProductDetailsComponent)
+      },
     ],
     canActivate: [authGuard],
   },
-
-  {
-    path: 'landing',
-    loadComponent: () =>
-      import('./pages/landing/landing.component').then(
-        (m) => m.LandingComponent
-      ),
-
-  },
-
   {
     path: '**',
     loadComponent: () =>

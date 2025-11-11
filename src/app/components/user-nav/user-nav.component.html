@@ -1,7 +1,7 @@
 <div>
     <p-menubar [model]="items">
         <ng-template pTemplate="start">
-            <img src="logo.png" width="50px" alt="logo">
+           <a [routerLink]="['/user/home']"> <img src="logo.png" width="50px" alt="logo" /> </a>
         </ng-template>
         <ng-template pTemplate="item" let-item let-root="root">
             <a pRipple class="flex align-items-center p-menuitem-link color-primary" [routerLink]="[item?.['path']]"
@@ -20,23 +20,18 @@
             <div class="flex items-center gap-2">
                 <ng-container *ngIf="isLoggedIn">
                     <p-menu #userMenu [popup]="true" [model]="accountItem" styleClass="menu-item-bar"></p-menu>
-                    <a pButton type="button" icon="pi pi-shopping-cart" class="p-button-text color-primary"
-                        [routerLink]="['./cart']" pTooltip="Cart">
-                    </a>
+                    
+                    <a  type="button" 
+                        [routerLink]="['./cart']" >
+                        <i class="pi pi-shopping-cart m-3 color-primary" pBadge style="font-size: 20px;" value="1"></i>
+                </a>
+                    
                     <a pButton type="button" icon="pi pi-user" class="p-button-text gap-3 color-primary"
                         (click)="userMenu.toggle($event)">
                         {{ userName }}
                     </a>
                 </ng-container>
 
-                <ng-container *ngIf="!isLoggedIn">
-                    <a pButton type="button" icon="pi pi-shopping-cart" class="p-button-text color-primary"
-                        [routerLink]="['./cart']" pTooltip="Cart">
-                    </a>
-                    <a pButton type="button" icon="pi pi-sign-in" label="Sign In" class="p-button-text color-primary"
-                        [routerLink]="['../auth/login']">
-                    </a>
-                </ng-container>
             </div>
         </ng-template>
 

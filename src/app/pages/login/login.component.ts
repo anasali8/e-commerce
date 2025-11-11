@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 import {
   FormControl,
@@ -20,6 +20,7 @@ import { SharedModule } from '../../shared/module/shared/shared.module';
   imports: [SharedModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
+  
 })
 export class LoginComponent {
   messages: Message[] | undefined = [];
