@@ -5,7 +5,7 @@ import { loginGuard } from './core/guards/login.guard';
 import path from 'path';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'user', pathMatch: 'full' },
+  { path: '', redirectTo: 'auth', pathMatch: 'full' },
   {
     path: 'auth',
     loadComponent: () =>
@@ -54,6 +54,10 @@ export const routes: Routes = [
       {
         path: 'contact',
         loadComponent: () => import('./pages/contact/contact.component').then((c) => c.ContactComponent)
+      },
+      {
+        path: 'category',
+        loadComponent: () => import('./pages/category/category.component').then((c) => c.CategoryComponent)
       },
       {
         path: 'cart',

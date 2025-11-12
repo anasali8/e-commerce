@@ -151,11 +151,11 @@ export class CheckoutComponent implements OnInit {
   }
 
   calculateShipping(): number {
-    return 50; // Fixed shipping fee
+    return 50; 
   }
 
   calculateTax(): number {
-    return this.calculateSubtotal() * 0.1; // 10% tax
+    return this.calculateSubtotal() * 0.1;
   }
 
   calculateTotal(): number {
