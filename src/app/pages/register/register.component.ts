@@ -67,7 +67,7 @@ export class RegisterComponent {
     const rePassword = control.get('rePassword')?.value;
     return password === rePassword ? null : { passwordMismatch: true };
   }
-
+  isSubmitted: boolean = false; 
   registerSubmit() {
     if (this.formGroup.valid) {
       this.spinner.show();
@@ -76,6 +76,7 @@ export class RegisterComponent {
         next: () => {
           this.spinner.hide();
           this.show('success', 'Success', 'Registeration Successful');
+          this.isSubmitted = true;
           this.router.navigate(['../auth/login']);
         },
         error: (err) => {

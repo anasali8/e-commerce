@@ -1,0 +1,144 @@
+<ngx-spinner 
+  bdColor="rgba(74,3,95,0.2)" 
+  size="medium" 
+  color="#af46ec" 
+  type="ball-spin-fade" 
+  [fullScreen]="true">
+</ngx-spinner>
+
+<div class="category-page">
+  <div class="container">
+    <div class="page-layout">
+      
+      <!-- Sidebar - Categories -->
+      <aside class="categories-sidebar">
+        <div class="sidebar-header">
+          <h2>
+            <i class="pi pi-th-large"></i>
+            Categories
+          </h2>
+        </div>
+
+        <!-- Loading State -->
+        @if (isLoadingCategories) {
+          <div class="category-skeleton">
+            @for (item of [1,2,3,4,5,6]; track item) {
+              <div class="skeleton-item">
+                <p-skeleton width="3rem" height="3rem" borderRadius="8px"></p-skeleton>
+                <div class="skeleton-text">
+                  <p-skeleton width="80%" height="1rem"></p-skeleton>
+                  <p-skeleton width="60%" height="0.75rem"></p-skeleton>
+                </div>
+              </div>
+            }
+          </div>
+        }
+
+        <!-- Categories List -->
+        @if (!isLoadingCategories) {
+          <div class="categories-list">
+            <!-- All Products Option -->
+            <div 
+              class="category-item" 
+              [class.active]="selectedCategory === null"
+              (click)="loadAllProducts()">
+              <div class="category-icon">
+                <i class="pi pi-shopping-bag"></i>
+              </div>
+              <div class="category-info">
+                <h3>All Products</h3>
+                <p>Browse everything</p>
+              </div>
+            </div>
+
+            <!-- Category Items -->
+            @for (category of categories; track category._id) {
+              <div 
+                class="category-item"
+                [class.active]="selectedCategory?._id === category._id"
+                (click)="selectCategory(category)">
+                <div class="category-image">
+                  <img [src]="category.image" [alt]="category.name" />
+                </div>
+                <div class="category-info">
+                  <h3>{{ category.name }}</h3>
+                  <p>{{ category.slug }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </aside>
+
+      <!-- Main Content - Products -->
+      <main class="products-section">
+        <div class="products-header">
+          <div class="header-content">
+            <h1>
+              @if (selectedCategory) {
+                {{ selectedCategory.name }}
+              } @else {
+                All Products
+              }
+            </h1>
+            <p class="products-count">
+              @if (!isLoadingProducts) {
+                <i class="pi pi-box"></i>
+                {{ products.length }} {{ products.length === 1 ? 'product' : 'products' }} found
+              }
+            </p>
+          </div>
+          <p-button 
+            label="View Cart" 
+            icon="pi pi-shopping-cart" 
+            [outlined]="true"
+            (onClick)="viewCart()"
+            styleClass="view-cart-btn">
+          </p-button>
+        </div>
+
+        <!-- Products Grid -->
+        @if (products.length > 0) {
+          <div class="products-grid">
+            @for (product of products; track product._id) {
+              <div class="product-wrapper">
+                <app-product-card 
+                  (fireAddToCart)="addToCart($event)" 
+                  [product]="product">
+                </app-product-card>
+              </div>
+            }
+          </div>
+        }
+
+        <!-- Empty State -->
+        @if (products.length === 0 && !isLoadingProducts) {
+          <div class="empty-state">
+            <div class="empty-icon">
+              <i class="pi pi-inbox"></i>
+            </div>
+            <h3>No Products Found</h3>
+            <p>
+              @if (selectedCategory) {
+                There are no products in the <strong>{{ selectedCategory.name }}</strong> category yet.
+              } @else {
+                No products are available at the moment.
+              }
+            </p>
+            @if (selectedCategory) {
+              <p-button 
+                label="Browse All Products" 
+                icon="pi pi-arrow-left"
+                (onClick)="loadAllProducts()"
+                [outlined]="true"
+                styleClass="browse-all-btn">
+              </p-button>
+            }
+          </div>
+        }
+      </main>
+    </div>
+  </div>
+</div>
+
+<p-toast position="top-right"></p-toast>

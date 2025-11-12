@@ -58,9 +58,9 @@ export class UserNavComponent implements OnInit, OnDestroy {
         path: '/user/home',
       },
       {
-        label: 'Products',
-        icon: 'pi pi-user-plus',
-        path: './products',
+        label: 'Categories',
+        icon: 'pi pi-th-large',
+        path: '/user/category',
       },
       {
         label: 'Contact',
