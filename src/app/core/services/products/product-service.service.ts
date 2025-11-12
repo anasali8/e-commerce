@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { API_BASE_URL } from '../../apiRoot/baseUrl';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductServiceService {
+  constructor(private httpClient: HttpClient) {}
 
-  constructor(private httpClient: HttpClient) { }
+  getProducts(categoryID? : string): Observable<any> {
+    let url = categoryID? `${API_BASE_URL}/products?category[in]=${categoryID}` : `${API_BASE_URL}/products`;
+    return this.httpClient.get(url);
+  }
 
-  getProducts() : Observable<any>{ 
-    return this.httpClient.get(`https://ecommerce.routemisr.com/api/v1/products`);
+  getProductById(id: string): Observable<any> {
+    return this.httpClient.get(`${API_BASE_URL}/products/${id}`);
   }
 }
-  

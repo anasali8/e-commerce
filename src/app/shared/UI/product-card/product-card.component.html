@@ -1,1 +1,35 @@
-<p>product-card works!</p>
+<p-card class="product-card ">
+    <ng-template pTemplate="header">
+        <img [src]="product.imageCover" [alt]="product.title" class="product-image" />
+    </ng-template>
+
+    <div class="card-body">
+        <h3 class="product-title">{{ product.title }}</h3>
+        <p class="product-brand">{{ product.brand.name }}</p>
+        <p class="product-desc">
+            {{ product.description | slice: 0: 80 }}...
+        </p>
+
+        <div class="product-price">
+            <strong>${{ product.price }}</strong>
+        </div>
+
+        <div class="product-rating">
+            ⭐ {{ product.ratingsAverage }} ({{ product.ratingsQuantity }} ratings)
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+
+        <div class="flex gap-2 mt-1">
+
+            <button pButton type="button" label="Add to Cart" icon="pi pi-shopping-cart" class="p-button-rounded"
+                (click)="handleAddToCart(product._id)">
+            </button>
+
+            <button pButton type="button" label="Details" icon="pi pi-info-circle"
+                class="p-button-rounded p-button-secondary" [routerLink]="['/user/productDetails', product._id]">
+            </button>
+        </div>
+    </ng-template>
+</p-card>
