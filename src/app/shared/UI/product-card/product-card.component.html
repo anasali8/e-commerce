@@ -20,16 +20,16 @@
     </div>
 
     <ng-template pTemplate="footer">
-        
+
         <div class="flex gap-2 mt-1">
 
             <button pButton type="button" label="Add to Cart" icon="pi pi-shopping-cart" class="p-button-rounded"
-            (onClick)="handleAddToCart(product.id)">
-        </button>
-        
-        <button pButton type="button" label="Details" icon="pi pi-info-circle"
-        class="p-button-rounded p-button-secondary" [routerLink]="['/user/productDetails', product.id]">
-    </button>
-</div>
+                (click)="handleAddToCart(product._id)">
+            </button>
+
+            <button pButton type="button" label="Details" icon="pi pi-info-circle"
+                class="p-button-rounded p-button-secondary" [routerLink]="['/user/productDetails', product._id]">
+            </button>
+        </div>
     </ng-template>
 </p-card>

@@ -16,7 +16,7 @@ export class CartServiceService {
   addProductToCart(productId: string) : Observable<any> {
     return this.httpClient.post(`${API_BASE_URL}/cart`, {productId}, {
       headers: {
-        'token': JSON.parse(this.token)
+        'token': JSON.parse(this.token)? JSON.parse(this.token) : ''
       }
     });
   }
