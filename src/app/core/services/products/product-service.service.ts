@@ -17,4 +17,22 @@ export class ProductServiceService {
   getProductById(id: string): Observable<any> {
     return this.httpClient.get(`${API_BASE_URL}/products/${id}`);
   }
+
+  getProductsByBrand(brandId: string, limit: number = 4): Observable<any> {
+    return this.httpClient.get(
+      `${API_BASE_URL}/products?brand=${brandId}&limit=${limit}`
+    );
+  }
+
+  getProductsByCategory(categoryId: string, limit: number = 4): Observable<any> {
+    return this.httpClient.get(
+      `${API_BASE_URL}/products?category=${categoryId}&limit=${limit}`
+    );
+  }
+
+  getProductsBySubcategory(subcategoryId: string, limit: number = 4): Observable<any> {
+    return this.httpClient.get(
+      `${API_BASE_URL}/products?subcategory=${subcategoryId}&limit=${limit}`
+    );
+  }
 }
