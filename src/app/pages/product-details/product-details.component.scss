@@ -1,0 +1,271 @@
+.product-details-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+
+  .back-button-container {
+    margin-bottom: 2rem;
+
+    ::ng-deep .p-button {
+      color: #6d206e;
+      font-weight: 600;
+
+      &:hover {
+        color: #8b75d9;
+      }
+    }
+  }
+
+  .product-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+
+    .product-gallery {
+      ::ng-deep {
+        .p-galleria {
+          .p-galleria-item-wrapper {
+            .gallery-image {
+              width: 100%;
+              height: auto;
+              max-height: 500px;
+              object-fit: contain;
+              border-radius: 8px;
+              background: #f9fafb;
+            }
+          }
+
+          .p-galleria-thumbnail-wrapper {
+            margin-top: 1rem;
+
+            .gallery-thumbnail {
+              width: 100%;
+              height: 80px;
+              object-fit: cover;
+              border-radius: 4px;
+              cursor: pointer;
+              transition: all 0.3s;
+              border: 2px solid transparent;
+
+              &:hover {
+                border-color: #6d206e;
+              }
+            }
+
+            .p-galleria-thumbnail-item-active {
+              .gallery-thumbnail {
+                border-color: #6d206e;
+              }
+            }
+          }
+
+          .p-galleria-indicator {
+            background: #6d206e;
+          }
+        }
+      }
+    }
+
+    .product-info-section {
+      .product-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1rem;
+
+        .product-title {
+          font-size: 2rem;
+          font-weight: 600;
+          color: #1f2937;
+          margin: 0;
+          flex: 1;
+          line-height: 1.3;
+        }
+      }
+
+      .product-meta {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .product-brand,
+      .product-category {
+        display: flex;
+        gap: 0.5rem;
+        font-size: 1rem;
+
+        .label {
+          font-weight: 600;
+          color: #6b7280;
+        }
+
+        .value {
+          color: #1f2937;
+        }
+      }
+
+      .product-rating {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        ::ng-deep .p-rating {
+          .p-rating-icon {
+            color: #fbbf24;
+          }
+        }
+
+        .rating-text {
+          color: #6b7280;
+          font-size: 0.95rem;
+        }
+      }
+
+      .product-price-section {
+        margin: 1.5rem 0;
+
+        .price-wrapper {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 0.5rem;
+
+          .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #6d206e;
+          }
+
+          .price-after-discount {
+            font-size: 1.5rem;
+            color: #059669;
+            font-weight: 600;
+          }
+        }
+
+        .discount-badge {
+          display: inline-block;
+          background: #dcfce7;
+          color: #059669;
+          padding: 0.25rem 0.75rem;
+          border-radius: 4px;
+          font-size: 0.875rem;
+          font-weight: 600;
+        }
+      }
+
+      .product-description {
+        margin: 1.5rem 0;
+
+        h3 {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: #1f2937;
+          margin-bottom: 0.75rem;
+        }
+
+        p {
+          color: #4b5563;
+          line-height: 1.7;
+          font-size: 1rem;
+        }
+      }
+
+      .product-actions {
+        margin-top: 2rem;
+
+        ::ng-deep .add-to-cart-btn {
+          .p-button {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background-color: #6d206e;
+            border-color: #6d206e;
+
+            &:hover {
+              background-color: #8b75d9;
+              border-color: #8b75d9;
+            }
+
+            &:disabled {
+              background-color: #d1d5db;
+              border-color: #d1d5db;
+              cursor: not-allowed;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .related-products-section {
+    margin-top: 3rem;
+
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .product-details-container {
+    padding: 1rem;
+
+    .product-main {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+
+      .product-gallery {
+        ::ng-deep .p-galleria {
+          .p-galleria-item-wrapper {
+            .gallery-image {
+              max-height: 300px;
+            }
+          }
+        }
+      }
+
+      .product-info-section {
+        .product-header {
+          flex-direction: column;
+          align-items: flex-start;
+
+          .product-title {
+            font-size: 1.5rem;
+          }
+        }
+
+        .product-meta {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .product-price-section {
+          .price-wrapper {
+            .price {
+              font-size: 2rem;
+            }
+
+            .price-after-discount {
+              font-size: 1.25rem;
+            }
+          }
+        }
+
+        .product-actions {
+          ::ng-deep .add-to-cart-btn .p-button {
+            width: 100%;
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+}

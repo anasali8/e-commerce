@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IProduct } from '../../../interfaces/Iproduct';
 import { ProductServiceService } from '../../../core/services/products/product-service.service';
-
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
@@ -25,10 +25,9 @@ import { ToastModule } from 'primeng/toast';
     ToastModule
   ],
   templateUrl: './recent-products.component.html',
-  styleUrl: './recent-products.component.scss',
-  providers: [MessageService],
+  styleUrl: './recent-products.component.scss'
 })
-export class RecentProductsComponent {
+export class RecentProductsComponent implements OnInit {
   products!: IProduct[];
   loading = true;
 
@@ -36,7 +35,8 @@ export class RecentProductsComponent {
     private productService: ProductServiceService,
     private spinner: NgxSpinnerService,
     private cartService: CartServiceService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -55,6 +55,12 @@ export class RecentProductsComponent {
         console.error('Error loading products', err);
         this.loading = false;
         this.spinner.hide();
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to load products',
+          life: 3000
+        });
       },
     });
   }
@@ -64,20 +70,46 @@ export class RecentProductsComponent {
     this.cartService.addProductToCart(productId).subscribe({
       next: (res) => {
         this.spinner.hide();
-        this.show('success', 'Success', 'Product added to cart successfully');
+        console.log('Product added to cart:', res);
+        
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Product added to cart successfully',
+          life: 3000
+        });
       },
       error: (err) => {
         this.spinner.hide();
-        this.show('error', 'Error', 'Failed to add product to cart');
+        console.error('Error adding to cart:', err);
+        
+        if (err.status === 401) {
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Authentication Required',
+            detail: 'Please login to add items to cart',
+            life: 3000
+          });
+        } else if (err.status === 400) {
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Invalid Request',
+            detail: 'This product cannot be added to cart',
+            life: 3000
+          });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to add product to cart. Please try again.',
+            life: 3000
+          });
+        }
       },
     });
   }
 
-  show(severity: string, summary: string, detail: string) {
-    this.messageService.add({
-      severity: severity,
-      summary: summary,
-      detail: detail,
-    });
+  viewCart(): void {
+    this.router.navigate(['/user/cart']);
   }
 }

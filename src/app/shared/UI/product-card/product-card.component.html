@@ -1,35 +1,67 @@
-<p-card class="product-card ">
+<p-card class="product-card">
     <ng-template pTemplate="header">
-        <img [src]="product.imageCover" [alt]="product.title" class="product-image" />
+        <div class="image-container">
+            <img [src]="product.imageCover" [alt]="product.title" class="product-image" />
+            
+            <!-- Discount Badge -->
+            <div class="discount-badge" *ngIf="hasDiscount()">
+                <span>{{ calculateDiscountPercentage() }}% OFF</span>
+            </div>
+            
+            <!-- Stock Badge -->
+            <div class="stock-badge" [class.out-of-stock]="product.quantity === 0">
+                {{ product.quantity > 0 ? 'In Stock' : 'Out of Stock' }}
+            </div>
+        </div>
     </ng-template>
 
     <div class="card-body">
-        <h3 class="product-title">{{ product.title }}</h3>
+        <h3 class="product-title" [title]="product.title">{{ product.title }}</h3>
         <p class="product-brand">{{ product.brand.name }}</p>
         <p class="product-desc">
             {{ product.description | slice: 0: 80 }}...
         </p>
 
-        <div class="product-price">
-            <strong>${{ product.price }}</strong>
+        <!-- Price Section with Discount -->
+        <div class="product-price-section">
+            <div class="price-wrapper">
+                <span class="current-price">
+                    ${{ product.priceAfterDiscount || product.price }}
+                </span>
+                <span class="original-price" *ngIf="hasDiscount()">
+                    ${{ product.price }}
+                </span>
+            </div>
+            <div class="savings" *ngIf="hasDiscount()">
+                Save ${{ product.price - (product.priceAfterDiscount || 0) | number: '1.2-2' }}
+            </div>
         </div>
 
+        <!-- Rating Section -->
         <div class="product-rating">
-            ⭐ {{ product.ratingsAverage }} ({{ product.ratingsQuantity }} ratings)
+            <i class="pi pi-star-fill"></i>
+            <span class="rating-value">{{ product.ratingsAverage }}</span>
+            <span class="rating-count">({{ product.ratingsQuantity }})</span>
         </div>
     </div>
 
     <ng-template pTemplate="footer">
+        <div class="card-actions">
+            <p-button 
+                label="Add to Cart" 
+                icon="pi pi-shopping-cart"
+                [disabled]="product.quantity === 0"
+                styleClass="add-cart-btn"
+                (onClick)="handleAddToCart(product._id)">
+            </p-button>
 
-        <div class="flex gap-2 mt-1">
-
-            <button pButton type="button" label="Add to Cart" icon="pi pi-shopping-cart" class="p-button-rounded"
-                (click)="handleAddToCart(product._id)">
-            </button>
-
-            <button pButton type="button" label="Details" icon="pi pi-info-circle"
-                class="p-button-rounded p-button-secondary" [routerLink]="['/user/productDetails', product._id]">
-            </button>
+            <p-button 
+                icon="pi pi-info-circle"
+                [outlined]="true"
+                severity="secondary"
+                styleClass="details-btn"
+                [routerLink]="['/user/productDetails', product._id]">
+            </p-button>
         </div>
     </ng-template>
 </p-card>

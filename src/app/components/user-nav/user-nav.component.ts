@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { BadgeModule } from 'primeng/badge';
@@ -12,25 +12,44 @@ import { FormsModule } from "@angular/forms";
 import { MenuModule } from 'primeng/menu';
 import { jwtDecode } from "jwt-decode";
 import { RouterModule } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+import { CartServiceService } from '../../core/services/cart/cart-service.service';
 
 @Component({
   selector: 'app-user-nav',
   standalone: true,
-  imports: [MenubarModule, BadgeModule, AvatarModule, InputTextModule, RippleModule, CommonModule, ButtonModule, FormsModule, MenuModule, RouterModule, RouterLink],
+  imports: [
+    MenubarModule, 
+    BadgeModule, 
+    AvatarModule, 
+    InputTextModule, 
+    RippleModule, 
+    CommonModule, 
+    ButtonModule, 
+    FormsModule, 
+    MenuModule, 
+    RouterModule, 
+    RouterLink
+  ],
   templateUrl: './user-nav.component.html',
   styleUrl: './user-nav.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
-export class UserNavComponent implements OnInit {
+export class UserNavComponent implements OnInit, OnDestroy {
 
   items: MenuItem[] = [];
   accountItem: MenuItem[] = [];
-
   userName: string = '';
   isLoggedIn: boolean = false;
+  cartItemCount: number = 0;
+  
+  private destroy$ = new Subject<void>();
 
+  constructor(
+    private router: Router,
+    private cartService: CartServiceService
+  ) {}
 
-  constructor(private router: Router) { }
   ngOnInit() {
     this.items = [
       {
@@ -51,14 +70,14 @@ export class UserNavComponent implements OnInit {
     ];
 
     this.accountItem = [
-      {
-        label: 'Profile',
-        icon: 'pi pi-user',
-      },
-      {
-        label: 'Settings',
-        icon: 'pi pi-cog',
-      },
+      // {
+      //   label: 'Profile',
+      //   icon: 'pi pi-user',
+      // },
+      // {
+      //   label: 'Settings',
+      //   icon: 'pi pi-cog',
+      // },
       {
         label: 'Signout',
         icon: 'pi pi-sign-out',
@@ -72,12 +91,25 @@ export class UserNavComponent implements OnInit {
       this.isLoggedIn = true;
       const decodedToken: any = jwtDecode(token);
       this.userName = decodedToken.name || 'User';
+      
+      // Subscribe to cart count updates
+      this.cartService.cartCount$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(count => {
+          this.cartItemCount = count;
+        });
     }
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   signout() {
     localStorage.removeItem('userToken');
-    this.isLoggedIn = false; // Update authentication status
+    this.isLoggedIn = false;
+    this.cartItemCount = 0;
     this.router.navigate(['../auth/login']);
   }
 }

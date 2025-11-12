@@ -56,6 +56,14 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/contact/contact.component').then((c) => c.ContactComponent)
       },
       {
+        path: 'cart',
+        loadComponent: () => import('./pages/cart/cart.component').then((c) => c.CartComponent),
+      },
+      {
+        path: 'checkout',
+        loadComponent: () => import('./pages/checkout/checkout.component').then((c) => c.CheckoutComponent)
+      },
+      {
       path: 'productDetails/:id',
         loadComponent: () => import('./pages/product-details/product-details.component').then((p) => p.ProductDetailsComponent)
       },
