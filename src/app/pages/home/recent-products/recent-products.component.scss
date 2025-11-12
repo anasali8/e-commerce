@@ -2,4 +2,144 @@
   padding: 2rem 1rem;
   max-width: 1400px;
   margin: 0 auto;
+  
+  .products-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    
+    h2 {
+      font-size: 1.875rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin: 0;
+    }
+    
+    ::ng-deep .view-cart-btn {
+      .p-button {
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+  
+  i {
+    font-size: 4rem;
+    color: #d1d5db;
+    margin-bottom: 1rem;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    color: #6b7280;
+    font-size: 1rem;
+  }
+}
+
+// Toast styling
+::ng-deep {
+  .p-toast {
+    opacity: 1;
+    
+    .p-toast-message {
+      margin: 0 0 1rem 0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      border-radius: 8px;
+      
+      &.p-toast-message-success {
+        background-color: #f0fdf4;
+        border: 1px solid #86efac;
+        color: #166534;
+        
+        .p-toast-message-icon {
+          color: #16a34a;
+        }
+      }
+      
+      &.p-toast-message-error {
+        background-color: #fef2f2;
+        border: 1px solid #fca5a5;
+        color: #991b1b;
+        
+        .p-toast-message-icon {
+          color: #dc2626;
+        }
+      }
+      
+      &.p-toast-message-warn {
+        background-color: #fffbeb;
+        border: 1px solid #fcd34d;
+        color: #92400e;
+        
+        .p-toast-message-icon {
+          color: #f59e0b;
+        }
+      }
+      
+      &.p-toast-message-info {
+        background-color: #eff6ff;
+        border: 1px solid #93c5fd;
+        color: #1e40af;
+        
+        .p-toast-message-icon {
+          color: #3b82f6;
+        }
+      }
+    }
+    
+    .p-toast-message-content {
+      padding: 1rem;
+      
+      .p-toast-summary {
+        font-weight: 600;
+        font-size: 1rem;
+      }
+      
+      .p-toast-detail {
+        margin-top: 0.25rem;
+        font-size: 0.875rem;
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .home-container {
+    padding: 1rem;
+    
+    .products-header {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+      
+      h2 {
+        font-size: 1.5rem;
+      }
+      
+      ::ng-deep .view-cart-btn {
+        width: 100%;
+        
+        .p-button {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    }
+  }
 }

@@ -1,10 +1,128 @@
+<ngx-spinner 
+  bdColor="rgba(74,3,95,0.2)" 
+  size="medium" 
+  color="#af46ec" 
+  type="ball-spin-fade" 
+  [fullScreen]="true">
+</ngx-spinner>
 
+<div class="product-details-container" *ngIf="!loading && product">
+  <div class="back-button-container">
+    <p-button 
+      label="Back to Products" 
+      icon="pi pi-arrow-left" 
+      [text]="true"
+      (onClick)="goBack()">
+    </p-button>
+  </div>
 
+  <!-- Main Product Section -->
+  <div class="product-main">
+    <div class="product-gallery">
+      <p-galleria 
+        *ngIf="images.length > 0"
+        [value]="images" 
+        [responsiveOptions]="responsiveOptions"
+        [containerStyle]="{ 'max-width': '100%' }"
+        [numVisible]="5"
+        [circular]="true"
+        [showItemNavigators]="true"
+        [showThumbnails]="images.length > 1">
+        <ng-template pTemplate="item" let-item>
+          <img [src]="item.itemImageSrc" [alt]="item.alt" class="gallery-image" />
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-item>
+          <img [src]="item.thumbnailImageSrc" [alt]="item.alt" class="gallery-thumbnail" />
+        </ng-template>
+      </p-galleria>
+    </div>
 
+    <!-- Product Info -->
+    <div class="product-info-section">
+      <div class="product-header">
+        <h1 class="product-title">{{ product.title }}</h1>
+        <p-tag 
+          *ngIf="product.quantity > 0" 
+          value="In Stock" 
+          severity="success">
+        </p-tag>
+        <p-tag 
+          *ngIf="product.quantity === 0" 
+          value="Out of Stock" 
+          severity="danger">
+        </p-tag>
+      </div>
 
+      <div class="product-meta">
+        <div class="product-brand" *ngIf="product.brand">
+          <span class="label">Brand:</span>
+          <span class="value">{{ product.brand.name }}</span>
+        </div>
 
+        <div class="product-category" *ngIf="product.category">
+          <span class="label">Category:</span>
+          <span class="value">{{ product.category.name }}</span>
+        </div>
+      </div>
 
+      <p-divider></p-divider>
 
-<!-- last line of the code -->
-<p-toast [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }" />
-<ngx-spinner bdColor = "rgba(74,3,95,0.2)" size = "medium" color = "#af46ec" type = "ball-spin-fade" [fullScreen] = "true"></ngx-spinner>
+      <div class="product-rating">
+        <p-rating 
+          [(ngModel)]="product.ratingsAverage" 
+          [readonly]="true" 
+          [cancel]="false">
+        </p-rating>
+        <span class="rating-text">
+          {{ product.ratingsAverage }} ({{ product.ratingsQuantity }} reviews)
+        </span>
+      </div>
+
+      <p-divider></p-divider>
+
+      <div class="product-price-section">
+        <div class="price-wrapper">
+          <span class="price">${{ product.price }}</span>
+          <span class="price-after-discount" *ngIf="product.priceAfterDiscount">
+            ${{ product.priceAfterDiscount }}
+          </span>
+        </div>
+        <span class="discount-badge" *ngIf="product.priceAfterDiscount">
+          Save ${{ product.price - product.priceAfterDiscount }}
+        </span>
+      </div>
+
+      <div class="product-description">
+        <h3>Description</h3>
+        <p>{{ product.description }}</p>
+      </div>
+
+      <div class="product-actions">
+        <p-button 
+          label="Add to Cart" 
+          icon="pi pi-shopping-cart" 
+          [disabled]="product.quantity === 0"
+          (onClick)="addToCart(product._id)"
+          styleClass="add-to-cart-btn">
+        </p-button>
+      </div>
+    </div>
+  </div>
+
+  <p-divider></p-divider>
+
+  <!-- Related Products Section -->
+  <div class="related-products-section" *ngIf="relatedProducts.length > 0">
+    <h2 class="section-title">You May Also Like</h2>
+    <div class="grid">
+      <div class="col-12 sm:col-6 md:col-4 lg:col-3" *ngFor="let relatedProduct of relatedProducts">
+        <app-product-card 
+          [product]="relatedProduct"
+          (fireAddToCart)="handleRelatedProductAddToCart($event)">
+        </app-product-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-toast position="top-right"></p-toast>
