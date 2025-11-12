@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component,  EventEmitter,  Input, Output } from '@angular/core';
 import { IProduct } from '../../../interfaces/Iproduct';
 import { SlicePipe } from '@angular/common';
 import { CardModule } from 'primeng/card';
@@ -13,10 +13,16 @@ import { RouterModule } from '@angular/router';
   styleUrl: './product-card.component.scss'
 })
 export class ProductCardComponent {
+  
   @Input() product!: IProduct;
   @Output() fireAddToCart: EventEmitter<string> = new EventEmitter();
 
-  handleAddToCart(id:string): void {
+  ngOnInit(){
+    console.log(this.product);
+  }
+
+  handleAddToCart(id:string){  
+    console.log('hiiiii');
     this.fireAddToCart.emit(id);
   }
 }
