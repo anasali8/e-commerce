@@ -9,7 +9,7 @@ export const registerGuard: CanDeactivateFn<RegisterComponent> = (
   currentState,
   nextState
 ) => {
-  if (component.formGroup.valid) {
+  if (component.formGroup.valid && component.isSubmitted === false) {
     return component.confirmExit('Are you sure you want to leave? Your changes may not be saved?');
   }
   return true;
