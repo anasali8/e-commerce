@@ -13,5 +13,4 @@ import { RouterLink } from '@angular/router';
 })
 export class UserFooterComponent {
     currentYear: number = new Date().getFullYear();
-
 }
