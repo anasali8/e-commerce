@@ -1,17 +1,17 @@
-<ngx-spinner 
-  bdColor="rgba(74,3,95,0.2)" 
-  size="medium" 
-  color="#af46ec" 
-  type="ball-spin-fade" 
+<ngx-spinner
+  bdColor="rgba(74,3,95,0.2)"
+  size="medium"
+  color="#af46ec"
+  type="ball-spin-fade"
   [fullScreen]="true">
 </ngx-spinner>
 
 <div class="checkout-wrapper">
   <!-- Header -->
   <div class="checkout-header">
-    <p-button 
-      label="Back to Cart" 
-      icon="pi pi-arrow-left" 
+    <p-button
+      label="Back to Cart"
+      icon="pi pi-arrow-left"
       [text]="true"
       (onClick)="goBack()">
     </p-button>
@@ -23,7 +23,7 @@
       <!-- Left Column - Forms -->
       <div class="checkout-forms">
         <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
-          
+
           <!-- Shipping Information Card -->
           <p-card styleClass="checkout-card">
             <ng-template pTemplate="header">
@@ -37,9 +37,9 @@
               <div class="form-row">
                 <div class="form-field">
                   <label for="firstName">First Name *</label>
-                  <input 
-                    pInputText 
-                    id="firstName" 
+                  <input
+                    pInputText
+                    id="firstName"
                     formControlName="firstName"
                     [class.invalid]="isFieldInvalid('firstName')"
                     placeholder="Enter your first name" />
@@ -50,9 +50,9 @@
 
                 <div class="form-field">
                   <label for="lastName">Last Name *</label>
-                  <input 
-                    pInputText 
-                    id="lastName" 
+                  <input
+                    pInputText
+                    id="lastName"
                     formControlName="lastName"
                     [class.invalid]="isFieldInvalid('lastName')"
                     placeholder="Enter your last name" />
@@ -65,9 +65,9 @@
               <div class="form-row">
                 <div class="form-field">
                   <label for="email">Email *</label>
-                  <input 
-                    pInputText 
-                    id="email" 
+                  <input
+                    pInputText
+                    id="email"
                     type="email"
                     formControlName="email"
                     [class.invalid]="isFieldInvalid('email')"
@@ -79,9 +79,9 @@
 
                 <div class="form-field">
                   <label for="phone">Phone Number *</label>
-                  <input 
-                    pInputText 
-                    id="phone" 
+                  <input
+                    pInputText
+                    id="phone"
                     formControlName="phone"
                     [class.invalid]="isFieldInvalid('phone')"
                     placeholder="01234567890" />
@@ -93,9 +93,9 @@
 
               <div class="form-field full-width">
                 <label for="address">Street Address *</label>
-                <input 
-                  pInputText 
-                  id="address" 
+                <input
+                  pInputText
+                  id="address"
                   formControlName="address"
                   [class.invalid]="isFieldInvalid('address')"
                   placeholder="123 Main Street, Apartment 4B" />
@@ -107,8 +107,8 @@
               <div class="form-row">
                 <div class="form-field">
                   <label for="city">City *</label>
-                  <p-dropdown 
-                    [options]="cities" 
+                  <p-dropdown
+                    [options]="cities"
                     formControlName="city"
                     optionLabel="name"
                     optionValue="name"
@@ -123,9 +123,9 @@
 
                 <div class="form-field">
                   <label for="postalCode">Postal Code *</label>
-                  <input 
-                    pInputText 
-                    id="postalCode" 
+                  <input
+                    pInputText
+                    id="postalCode"
                     formControlName="postalCode"
                     [class.invalid]="isFieldInvalid('postalCode')"
                     placeholder="12345" />
@@ -148,9 +148,9 @@
 
             <div class="payment-methods">
               <div class="payment-option">
-                <p-radioButton 
-                  name="paymentMethod" 
-                  value="cash" 
+                <p-radioButton
+                  name="paymentMethod"
+                  value="cash"
                   formControlName="paymentMethod"
                   inputId="cash">
                 </p-radioButton>
@@ -164,9 +164,9 @@
               </div>
 
               <div class="payment-option">
-                <p-radioButton 
-                  name="paymentMethod" 
-                  value="card" 
+                <p-radioButton
+                  name="paymentMethod"
+                  value="card"
                   formControlName="paymentMethod"
                   inputId="card">
                 </p-radioButton>
@@ -191,7 +191,7 @@
             </ng-template>
 
             <div class="form-field full-width">
-              <textarea 
+              <textarea
                 pInputText
                 formControlName="notes"
                 rows="4"
@@ -222,7 +222,7 @@
                 <p>Qty: {{ item.quantity }}</p>
               </div>
               <div class="item-price">
-                ${{ item.price * item.quantity | number: '1.2-2' }}
+                EGP {{ item.price * item.quantity | number: '1.2-2' }}
               </div>
             </div>
           </div>
@@ -233,27 +233,27 @@
           <div class="price-breakdown">
             <div class="price-row">
               <span>Subtotal</span>
-              <span>${{ calculateSubtotal() | number: '1.2-2' }}</span>
+              <span>EGP {{ calculateSubtotal() | number: '1.2-2' }}</span>
             </div>
             <div class="price-row">
               <span>Shipping</span>
-              <span>${{ calculateShipping() | number: '1.2-2' }}</span>
+              <span>EGP {{ calculateShipping() | number: '1.2-2' }}</span>
             </div>
             <div class="price-row">
               <span>Tax (10%)</span>
-              <span>${{ calculateTax() | number: '1.2-2' }}</span>
+              <span>EGP {{ calculateTax() | number: '1.2-2' }}</span>
             </div>
             <p-divider></p-divider>
             <div class="price-row total">
               <span>Total</span>
-              <span>${{ calculateTotal() | number: '1.2-2' }}</span>
+              <span>EGP {{ calculateTotal() | number: '1.2-2' }}</span>
             </div>
           </div>
 
           <ng-template pTemplate="footer">
-            <p-button 
-              label="Place Order" 
-              icon="pi pi-check" 
+            <p-button
+              label="Place Order"
+              icon="pi pi-check"
               (onClick)="onSubmit()"
               styleClass="place-order-btn"
               [disabled]="checkoutForm.invalid">
