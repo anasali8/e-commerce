@@ -1,16 +1,16 @@
-<ngx-spinner 
-  bdColor="rgba(74,3,95,0.2)" 
-  size="medium" 
-  color="#af46ec" 
-  type="ball-spin-fade" 
+<ngx-spinner
+  bdColor="rgba(74,3,95,0.2)"
+  size="medium"
+  color="#af46ec"
+  type="ball-spin-fade"
   [fullScreen]="true">
 </ngx-spinner>
 
 <div class="product-details-container" *ngIf="!loading && product">
   <div class="back-button-container">
-    <p-button 
-      label="Back to Products" 
-      icon="pi pi-arrow-left" 
+    <p-button
+      label="Back to Products"
+      icon="pi pi-arrow-left"
       [text]="true"
       (onClick)="goBack()">
     </p-button>
@@ -19,9 +19,9 @@
   <!-- Main Product Section -->
   <div class="product-main">
     <div class="product-gallery">
-      <p-galleria 
+      <p-galleria
         *ngIf="images.length > 0"
-        [value]="images" 
+        [value]="images"
         [responsiveOptions]="responsiveOptions"
         [containerStyle]="{ 'max-width': '100%' }"
         [numVisible]="5"
@@ -41,14 +41,14 @@
     <div class="product-info-section">
       <div class="product-header">
         <h1 class="product-title">{{ product.title }}</h1>
-        <p-tag 
-          *ngIf="product.quantity > 0" 
-          value="In Stock" 
+        <p-tag
+          *ngIf="product.quantity > 0"
+          value="In Stock"
           severity="success">
         </p-tag>
-        <p-tag 
-          *ngIf="product.quantity === 0" 
-          value="Out of Stock" 
+        <p-tag
+          *ngIf="product.quantity === 0"
+          value="Out of Stock"
           severity="danger">
         </p-tag>
       </div>
@@ -68,9 +68,9 @@
       <p-divider></p-divider>
 
       <div class="product-rating">
-        <p-rating 
-          [(ngModel)]="product.ratingsAverage" 
-          [readonly]="true" 
+        <p-rating
+          [(ngModel)]="product.ratingsAverage"
+          [readonly]="true"
           [cancel]="false">
         </p-rating>
         <span class="rating-text">
@@ -82,13 +82,13 @@
 
       <div class="product-price-section">
         <div class="price-wrapper">
-          <span class="price">${{ product.price }}</span>
+          <span class="price">EGP {{ product.price }}</span>
           <span class="price-after-discount" *ngIf="product.priceAfterDiscount">
-            ${{ product.priceAfterDiscount }}
+            EGP {{ product.priceAfterDiscount }}
           </span>
         </div>
         <span class="discount-badge" *ngIf="product.priceAfterDiscount">
-          Save ${{ product.price - product.priceAfterDiscount }}
+          Save EGP {{ product.price - product.priceAfterDiscount }}
         </span>
       </div>
 
@@ -98,9 +98,9 @@
       </div>
 
       <div class="product-actions">
-        <p-button 
-          label="Add to Cart" 
-          icon="pi pi-shopping-cart" 
+        <p-button
+          label="Add to Cart"
+          icon="pi pi-shopping-cart"
           [disabled]="product.quantity === 0"
           (onClick)="addToCart(product._id)"
           styleClass="add-to-cart-btn">
@@ -116,7 +116,7 @@
     <h2 class="section-title">You May Also Like</h2>
     <div class="grid">
       <div class="col-12 sm:col-6 md:col-4 lg:col-3" *ngFor="let relatedProduct of relatedProducts">
-        <app-product-card 
+        <app-product-card
           [product]="relatedProduct"
           (fireAddToCart)="handleRelatedProductAddToCart($event)">
         </app-product-card>

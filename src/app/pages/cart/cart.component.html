@@ -19,27 +19,27 @@
           <th style="width: 15%; text-align: center">ACTION</th>
         </tr>
       </ng-template>
-      
+
       <ng-template pTemplate="body" let-item>
         <tr>
           <td>
             <div class="product-info clickable" (click)="navigateToProduct(getProductId(item))">
-              <img 
-                [src]="getProductImage(item)" 
-                [alt]="getProductName(item)" 
+              <img
+                [src]="getProductImage(item)"
+                [alt]="getProductName(item)"
                 class="product-image"
                 (error)="onImageError($event)" />
               <div class="product-details">
                 <span class="product-name">{{ getProductName(item) }}</span>
                 <div class="price-info">
-                  <span class="unit-price">${{ getProductPrice(item) | number: '1.2-2' }} each</span>
+                  <span class="unit-price">EGP {{ getProductPrice(item) | number: '1.2-2' }} each</span>
                   <span class="original-price" *ngIf="hasDiscount(item)">
-                    <s>${{ getProductOriginalPrice(item) | number: '1.2-2' }}</s>
+                    <s>EGP {{ getProductOriginalPrice(item) | number: '1.2-2' }}</s>
                   </span>
-                  <p-tag 
-                    *ngIf="hasDiscount(item)" 
-                    value="Sale" 
-                    severity="success" 
+                  <p-tag
+                    *ngIf="hasDiscount(item)"
+                    value="Sale"
+                    severity="success"
                     styleClass="discount-tag">
                   </p-tag>
                 </div>
@@ -47,22 +47,22 @@
             </div>
           </td>
 
-          
+
           <td style="text-align: center">
             <div class="quantity-controls">
-              <p-button 
-                icon="pi pi-minus" 
+              <p-button
+                icon="pi pi-minus"
                 [rounded]="true"
                 [text]="true"
                 severity="secondary"
                 (onClick)="decrementQuantity(item)"
                 [disabled]="getProductQuantity(item) <= 1">
               </p-button>
-              
+
               <span class="quantity-value">{{ getProductQuantity(item) }}</span>
-              
-              <p-button 
-                icon="pi pi-plus" 
+
+              <p-button
+                icon="pi pi-plus"
                 [rounded]="true"
                 [text]="true"
                 severity="secondary"
@@ -70,19 +70,19 @@
               </p-button>
             </div>
           </td>
-          
+
           <td style="text-align: right">
             <div class="item-total-price">
-              <span class="product-price">${{ getProductPrice(item) * getProductQuantity(item) | number: '1.2-2' }}</span>
+              <span class="product-price">EGP {{ getProductPrice(item) * getProductQuantity(item) | number: '1.2-2' }}</span>
               <span class="original-total" *ngIf="hasDiscount(item)">
-                <s>${{ getProductOriginalPrice(item) * getProductQuantity(item) | number: '1.2-2' }}</s>
+                <s>EGP {{ getProductOriginalPrice(item) * getProductQuantity(item) | number: '1.2-2' }}</s>
               </span>
             </div>
           </td>
-          
+
           <td style="text-align: center">
-            <p-button 
-              label="Remove" 
+            <p-button
+              label="Remove"
               severity="danger"
               [text]="true"
               (onClick)="removeItem(getProductId(item))">
@@ -94,39 +94,39 @@
 
     <div class="cart-footer">
       <div class="cart-actions">
-        <p-button 
-          label="Clear Cart" 
+        <p-button
+          label="Clear Cart"
           severity="secondary"
           [outlined]="true"
           icon="pi pi-trash"
           (onClick)="clearCart()">
         </p-button>
       </div>
-      
+
       <div class="cart-summary">
         <div class="summary-row" *ngIf="calculateTotalSavings() > 0">
           <span class="summary-label">Original Total:</span>
-          <span class="summary-value original">${{ calculateOriginalTotal() | number: '1.2-2' }}</span>
+          <span class="summary-value original">EGP {{ calculateOriginalTotal() | number: '1.2-2' }}</span>
         </div>
         <div class="summary-row savings" *ngIf="calculateTotalSavings() > 0">
           <span class="summary-label">Your Savings:</span>
-          <span class="summary-value savings-value">-${{ calculateTotalSavings() | number: '1.2-2' }}</span>
+          <span class="summary-value savings-value">-EGP {{ calculateTotalSavings() | number: '1.2-2' }}</span>
         </div>
         <div class="summary-row">
           <span class="summary-label">Subtotal:</span>
-          <span class="summary-value">${{ calculateSubtotal() | number: '1.2-2' }}</span>
+          <span class="summary-value">EGP {{ calculateSubtotal() | number: '1.2-2' }}</span>
         </div>
         <div class="summary-row">
           <span class="summary-label">Tax (10%):</span>
-          <span class="summary-value">${{ calculateSubtotal() * 0.1 | number: '1.2-2' }}</span>
+          <span class="summary-value">EGP {{ calculateSubtotal() * 0.1 | number: '1.2-2' }}</span>
         </div>
         <div class="summary-row total-row">
           <span class="summary-label">Total:</span>
-          <span class="summary-value total-value">${{ calculateSubtotal() * 1.1 | number: '1.2-2' }}</span>
+          <span class="summary-value total-value">EGP {{ calculateSubtotal() * 1.1 | number: '1.2-2' }}</span>
         </div>
-        <p-button 
-          label="Proceed to Checkout" 
-          icon="pi pi-arrow-right" 
+        <p-button
+          label="Proceed to Checkout"
+          icon="pi pi-arrow-right"
           iconPos="right"
           styleClass="checkout-button"
           (onClick)="proceedToCheckout()">
@@ -140,8 +140,8 @@
     <i class="pi pi-shopping-cart empty-cart-icon"></i>
     <h3>Your cart is empty</h3>
     <p>Add items to your cart to see them here</p>
-    <p-button 
-      label="Continue Shopping" 
+    <p-button
+      label="Continue Shopping"
       icon="pi pi-arrow-left"
       [outlined]="true"
       routerLink="/user/home">

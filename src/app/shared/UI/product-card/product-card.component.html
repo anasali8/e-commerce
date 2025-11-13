@@ -2,12 +2,12 @@
     <ng-template pTemplate="header">
         <div class="image-container">
             <img [src]="product.imageCover" [alt]="product.title" class="product-image" />
-            
+
             <!-- Discount Badge -->
             <div class="discount-badge" *ngIf="hasDiscount()">
                 <span>{{ calculateDiscountPercentage() }}% OFF</span>
             </div>
-            
+
             <!-- Stock Badge -->
             <div class="stock-badge" [class.out-of-stock]="product.quantity === 0">
                 {{ product.quantity > 0 ? 'In Stock' : 'Out of Stock' }}
@@ -26,14 +26,14 @@
         <div class="product-price-section">
             <div class="price-wrapper">
                 <span class="current-price">
-                    ${{ product.priceAfterDiscount || product.price }}
+                    EGP {{ product.priceAfterDiscount || product.price }}
                 </span>
                 <span class="original-price" *ngIf="hasDiscount()">
-                    ${{ product.price }}
+                    EGP {{ product.price }}
                 </span>
             </div>
             <div class="savings" *ngIf="hasDiscount()">
-                Save ${{ product.price - (product.priceAfterDiscount || 0) | number: '1.2-2' }}
+                Save EGP {{ product.price - (product.priceAfterDiscount || 0) | number: '1.2-2' }}
             </div>
         </div>
 
@@ -47,15 +47,15 @@
 
     <ng-template pTemplate="footer">
         <div class="card-actions">
-            <p-button 
-                label="Add to Cart" 
+            <p-button
+                label="Add to Cart"
                 icon="pi pi-shopping-cart"
                 [disabled]="product.quantity === 0"
                 styleClass="add-cart-btn"
                 (onClick)="handleAddToCart(product._id)">
             </p-button>
 
-            <p-button 
+            <p-button
                 icon="pi pi-info-circle"
                 [outlined]="true"
                 severity="secondary"
