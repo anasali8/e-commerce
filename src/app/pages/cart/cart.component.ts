@@ -9,6 +9,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TagModule } from 'primeng/tag';
 import { forkJoin } from 'rxjs';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-cart',
@@ -19,7 +20,8 @@ import { forkJoin } from 'rxjs';
     TableModule,
     ButtonModule,
     ToastModule,
-    TagModule
+    TagModule,
+    NgxSpinnerModule
   ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
@@ -30,6 +32,7 @@ export class CartComponent implements OnInit {
 
   constructor(
     private cartService: CartServiceService,
+    private spinner: NgxSpinnerService,
     private productService: ProductServiceService,
     private messageService: MessageService,
     private router: Router
@@ -174,11 +177,13 @@ export class CartComponent implements OnInit {
   }
 
   incrementQuantity(item: any) {
+    this.spinner.show();
     const currentQty = this.getProductQuantity(item);
     const newQuantity = (currentQty + 1).toString();
     const productId = this.getProductId(item);
     
     this.updateItemQuantity(productId, newQuantity);
+    this.spinner.hide();
   }
 
   decrementQuantity(item: any) {
@@ -192,14 +197,15 @@ export class CartComponent implements OnInit {
   }
 
   updateItemQuantity(productId: string, quantity: string) {
+    this.spinner.show();
     this.cartService.updateteProductQuantity(productId, quantity).subscribe({
-      next: (response) => {
-        console.log('Update response:', response);
-        
+      next: () => {
+        // console.log('Update response:', response);
         const item = this.cartItems.find(i => this.getProductId(i) === productId);
         if (item) {
           item.quantity = parseInt(quantity);
         }
+        this.spinner.hide();
         
         this.messageService.add({
           severity: 'success',
@@ -209,11 +215,13 @@ export class CartComponent implements OnInit {
         });
       },
       error: (err) => {
-        console.error('Update error:', err);
+        // console.error('Update error:', err);
+        this.spinner.hide();
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: err.error?.message || 'Failed to update quantity'
+          detail: err.error?.message || 'Failed to update quantity',
+          life: 2000
         });
         
         this.loadCartItems();
@@ -222,11 +230,12 @@ export class CartComponent implements OnInit {
   }
 
   removeItem(productId: string) {
+    this.spinner.show();
     this.cartService.removeProductFromCart(productId).subscribe({
       next: (response) => {
-        console.log('Remove response:', response);
+        // console.log('Remove response:', response);
         this.cartItems = this.cartItems.filter(item => this.getProductId(item) !== productId);
-        
+        this.spinner.hide();
         this.messageService.add({
           severity: 'success',
           summary: 'Removed',
@@ -235,7 +244,8 @@ export class CartComponent implements OnInit {
         });
       },
       error: (err) => {
-        console.error('Remove error:', err);
+        // console.error('Remove error:', err);
+        this.spinner.hide();
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
@@ -255,9 +265,11 @@ export class CartComponent implements OnInit {
       return;
     }
 
+    this.spinner.show();
     this.cartService.clearCart().subscribe({
       next: (response) => {
-        console.log('Clear cart response:', response);
+        // console.log('Clear cart response:', response);
+        this.spinner.hide();
         this.cartItems = [];
         this.messageService.add({
           severity: 'success',
@@ -267,7 +279,8 @@ export class CartComponent implements OnInit {
         });
       },
       error: (err) => {
-        console.error('Error clearing cart:', err);
+        // console.error('Error clearing cart:', err);
+        this.spinner.hide();
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
